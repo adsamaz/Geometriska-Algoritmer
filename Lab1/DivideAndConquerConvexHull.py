@@ -32,38 +32,33 @@ def daq_help_function(p):
 
 def upper_tangent(a, b):
     index_a = rightmost_point_index(a)
-    index_b = 0
-
+    index_b = leftmost_point_index(b)
+    done = False
     # get the upper points
-    while True:
+    while not done:
         #print("a: " + str(a) + " index_a: " + str(index_a) + "\nb: " + str(b) + " index_b: " + str(index_b))
-        if right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]) and right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]):         # check if line is above b
-
-            if not right_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]) and not right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):     # check if line is above a
-                break
-            else:
-                index_a = get_next_index(a, index_a)
-        else:
+        done = True
+        while not right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]): #and right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]):         # check if line is above b
             index_b = get_next_index(b, index_b)
+        while right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]): #and not right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):     # check if line is above a
+            index_a = get_prev_index(a, index_a)
+            done = False
 
     return index_a, index_b
 
 
 def lower_tangent(a, b):
     index_a = rightmost_point_index(a)
-    index_b = 0
-
+    index_b = leftmost_point_index(b)
+    done = False
     # get the lower points
-    while True:
-
-        if right_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]) and right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):      # check if line is below a
-
-            if not right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]) and not right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]):  # check if line is above a
-                break
-            else:
-                index_b = get_prev_index(b, index_b)
-        else:
+    while not done:
+        done = True
+        while not right_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]): #and right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):      # check if line is below a
             index_a = get_next_index(a, index_a)
+        while right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]): #and not right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]):  # check if line is above a
+            index_b = get_prev_index(b, index_b)
+            done = False
 
     return index_a, index_b
 
@@ -82,15 +77,20 @@ def get_prev_index(p, index):
         return len(p) - 1
 
 
-def middle(p):
-    return int(len(p)/2)
-
-
 def rightmost_point_index(p):
     rmp = - math.inf
     rmp_index = 0
     for i in range(0, len(p)):
         if p[i][0] > rmp:
+            rmp = p[i][0]
+            rmp_index = i
+    return rmp_index
+
+def leftmost_point_index(p):
+    rmp = math.inf
+    rmp_index = 0
+    for i in range(0, len(p)):
+        if p[i][0] < rmp:
             rmp = p[i][0]
             rmp_index = i
     return rmp_index
