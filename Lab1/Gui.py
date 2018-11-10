@@ -1,10 +1,13 @@
 from random import *
 from tkinter import *
-import Lab1
-
 import nil
+from Lab1 import Convex_hull
+from Lab1.DivideAndConquerConvexHull import daq_convex_hull
 
-#GUI
+# GUI
+
+
+
 class Gui(Frame):
     list = []
     canvas = nil
@@ -26,8 +29,8 @@ class Gui(Frame):
     def randomize(self):
         self.clear_canvas()
         self.list.clear()
-        for i in range(40):
-            self.list.append((randint(1, 400), randint(1, 250)))
+        for i in range(10):
+            self.list.append((randint(20, 400), randint(20, 300)))
             self.draw_point(self.list[i])
 
     def from_file(self):
@@ -55,22 +58,25 @@ class Gui(Frame):
 
         b1 = Button(self, text="Randomize", command=self.randomize)
         b2 = Button(self, text="From File", command=self.from_file)
-        b3 = Button(self, text="Compute", command=self.compute_convex_hull)
-
+        b3 = Button(self, text="Compute with Alg 1", command=self.compute_convex_hull)
+        b4 = Button(self, text="Compute with Alg 5", command=self.compute_convex_hull_daq)
         b1.pack()
         b2.pack()
         b3.pack()
+        b4.pack()
 
         self.canvas = Canvas(self)
-
         self.canvas.pack(fill=BOTH, expand=1)
 
     def compute_convex_hull(self):
-        convex_hull = Lab1.convex_hull(self.list)
+        convex_hull = Convex_hull.convex_hull(self.list)
         for i in range(0, len(convex_hull)):
             self.draw_line(convex_hull[i - 1], convex_hull[i])
 
-
+    def compute_convex_hull_daq(self):
+        convex_hull = daq_convex_hull(self.list)
+        for i in range(0, len(convex_hull)):
+            self.draw_line(convex_hull[i - 1], convex_hull[i])
 
 
 def main():
@@ -78,6 +84,7 @@ def main():
     ex = Gui()
     root.geometry("400x250+300+300")
     root.mainloop()
+
 
 main()
 

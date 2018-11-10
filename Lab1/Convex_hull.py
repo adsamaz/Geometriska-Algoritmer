@@ -25,7 +25,7 @@ def convex_hull(p):
 def right_turn(p):
     matrix = [[1, p[0][0], p[0][1]], [1, p[1][0], p[1][1]], [1, p[2][0], p[2][1]]]
     sign = numpy.linalg.det(matrix)
-    if sign > 0:
+    if sign >= 0:
         return False
     else:
         return True
