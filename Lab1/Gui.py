@@ -21,7 +21,7 @@ class Gui(Frame):
 
     def draw_point(self, point):
         python_green = "#476042"
-        radius = 1.5
+        radius = 3
         x1, y1 = (point[0] - radius), (point[1] - radius)
         x2, y2 = (point[0] + radius), (point[1] + radius)
         self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
@@ -29,8 +29,10 @@ class Gui(Frame):
     def randomize(self):
         self.clear_canvas()
         self.list.clear()
-        for i in range(50):
-            self.list.append((randint(20, 400), randint(20, 300)))
+        self.list.append((1520, 900))
+        self.list.append((1410, 500))
+        for i in range(20000):
+            self.list.append((randint(20, 1200), randint(20, 800)))
             self.draw_point(self.list[i])
 
     def from_file(self):

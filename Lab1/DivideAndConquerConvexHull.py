@@ -1,8 +1,5 @@
 import math
-
-import numpy
-
-from Lab1.Convex_hull import right_turn
+from Lab1.Convex_hull import right_turn, left_turn
 from Lab1.Convex_hull import sort_points
 from Lab1.Convex_hull import convex_hull
 
@@ -36,7 +33,6 @@ def daq_help_function(p):
         a_list = []
     else:
         a_list = a[lower_a:]
-
     return a[:upper_a + 1] + b_list + a_list
 
 
@@ -44,13 +40,31 @@ def upper_tangent(a, b):
     index_a = rightmost_point_index(a)
     index_b = leftmost_point_index(b)
     done = False
+
     # get the upper points
     while not done:
         done = True
-        while not right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]): #and not right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]):         # check if line is above b
+        stuck = index_b
+        highest_point = index_b
+
+        while left_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]):   # check if line is above b
             index_b = get_next_index(b, index_b)
-        while right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]): #and right_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]):     # check if line is above a
+            if b[index_b][1] > b[highest_point][1]:
+                highest_point = index_b
+            if index_b == stuck:
+                index_b = highest_point
+                break
+
+        stuck = index_a
+        highest_point = index_a
+        while right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):  # check if line is above a
             index_a = get_prev_index(a, index_a)
+            if a[index_a][1] > a[highest_point][1]:
+                highest_point = index_a
+            if index_a == stuck:
+                index_a = highest_point
+                done = True
+                break
             done = False
 
     return index_a, index_b
@@ -60,13 +74,32 @@ def lower_tangent(a, b):
     index_a = rightmost_point_index(a)
     index_b = leftmost_point_index(b)
     done = False
+
     # get the lower points
     while not done:
         done = True
-        while not right_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]): #and not right_turn([b[index_b], a[index_a], a[get_prev_index(a, index_a)]]):      # check if line is below a
+        stuck = index_a
+        lowest_point = index_a
+
+        while left_turn([b[index_b], a[index_a], a[get_next_index(a, index_a)]]):   # check if line is below a
             index_a = get_next_index(a, index_a)
-        while right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]): #and right_turn([a[index_a], b[index_b], b[get_next_index(b, index_b)]]):  # check if line is above a
+            if a[index_a][1] < a[lowest_point][1]:
+                lowest_point = index_a
+            if index_a == stuck:
+                index_a = lowest_point
+                break
+
+        stuck = index_b
+        lowest_point = index_b
+        while right_turn([a[index_a], b[index_b], b[get_prev_index(b, index_b)]]):  # check if line is above a
             index_b = get_prev_index(b, index_b)
+            if b[index_b][1] < b[lowest_point][1]:
+                lowest_point = index_b
+
+            if index_b == stuck:
+                index_b = lowest_point
+                done = True
+                break
             done = False
 
     return index_a, index_b
@@ -95,15 +128,17 @@ def rightmost_point_index(p):
             rmp_index = i
     return rmp_index
 
+
 def leftmost_point_index(p):
-    rmp = math.inf
-    rmp_index = 0
+    lmp = math.inf
+    lmp_index = 0
     for i in range(0, len(p)):
-        if p[i][0] < rmp:
-            rmp = p[i][0]
-            rmp_index = i
-    return rmp_index
+        if p[i][0] < lmp:
+            lmp = p[i][0]
+            lmp_index = i
+    return lmp_index
 
 
-# list = [(0, 0),(50, 50),(0, 50),(100, 50),(100,500),(100, 500),(300, 200),(100, 50),(100,500),(100, 500),(300, 200)]
-# print(daq_convex_hull(list))
+list = [(0, 0), (1, -4), (-1, -5), (-5, -3), (-3, -1), (-2, -2), (-1, -1), (-2, -1), (-1, 1)]
+print(convex_hull(list))
+print(daq_convex_hull(list))

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1204bfa6-914a-4047-8c0a-fb277c861eaa" name="Default Changelist" comment="" />
+    <list default="true" id="1204bfa6-914a-4047-8c0a-fb277c861eaa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab1/Convex_hull.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/Convex_hull.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab1/Gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/Gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab1/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/input.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +27,10 @@
     <session id="-1269186488">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -41,25 +49,25 @@
         <counts>
           <entry key="Python Console" value="3" />
           <entry key="dummy" value="15" />
-          <entry key="py" value="3506" />
-          <entry key="txt" value="284" />
+          <entry key="py" value="5202" />
+          <entry key="txt" value="482" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="299" />
-          <entry key="Python" value="3509" />
+          <entry key="PLAIN_TEXT" value="497" />
+          <entry key="Python" value="5205" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab1/Convex_hull.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="19" lean-forward="true" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+            <state relative-caret-position="238">
+              <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -67,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab1/Gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+            <state relative-caret-position="333">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -79,16 +87,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+            <state relative-caret-position="340">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <marker date="1541879400737" expanded="true" signature="174:232" ph="..." />
-                <marker date="1541879400737" expanded="true" signature="257:262" ph="..." />
-                <marker date="1541879400737" expanded="true" signature="1553:2251" ph="..." />
-                <marker date="1541879400737" expanded="true" signature="2280:2285" ph="..." />
-                <marker date="1541879400737" expanded="true" signature="2359:2360" ph="..." />
-                <marker date="1541879400737" expanded="true" signature="2546:2551" ph="..." />
+                <marker date="1541957640544" expanded="true" signature="170:228" ph="..." />
+                <marker date="1541957640544" expanded="true" signature="253:258" ph="..." />
+                <marker date="1541957640544" expanded="true" signature="1899:2947" ph="..." />
+                <marker date="1541957640544" expanded="true" signature="2976:2981" ph="..." />
+                <marker date="1541957640544" expanded="true" signature="3055:3056" ph="..." />
               </folding>
             </state>
           </provider>
@@ -97,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab1/input.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="51">
+              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -119,9 +126,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Lab1/Gui.py" />
         <option value="$PROJECT_DIR$/Lab1/input.txt" />
         <option value="$PROJECT_DIR$/Lab1/Convex_hull.py" />
+        <option value="$PROJECT_DIR$/Lab1/Gui.py" />
         <option value="$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py" />
       </list>
     </option>
@@ -249,7 +256,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286334" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -265,43 +272,53 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Lab1/input.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lab1/Convex_hull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Lab1/Gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        <state relative-caret-position="333">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab1/input.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lab1/Convex_hull.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="19" lean-forward="true" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1541879400737" expanded="true" signature="174:232" ph="..." />
-            <marker date="1541879400737" expanded="true" signature="257:262" ph="..." />
-            <marker date="1541879400737" expanded="true" signature="1553:2251" ph="..." />
-            <marker date="1541879400737" expanded="true" signature="2280:2285" ph="..." />
-            <marker date="1541879400737" expanded="true" signature="2359:2360" ph="..." />
-            <marker date="1541879400737" expanded="true" signature="2546:2551" ph="..." />
+            <marker date="1541957640544" expanded="true" signature="170:228" ph="..." />
+            <marker date="1541957640544" expanded="true" signature="253:258" ph="..." />
+            <marker date="1541957640544" expanded="true" signature="1899:2947" ph="..." />
+            <marker date="1541957640544" expanded="true" signature="2976:2981" ph="..." />
+            <marker date="1541957640544" expanded="true" signature="3055:3056" ph="..." />
           </folding>
         </state>
       </provider>
