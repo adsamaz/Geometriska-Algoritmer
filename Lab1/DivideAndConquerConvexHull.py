@@ -38,7 +38,7 @@ def daq_help_function(p):
 
 def upper_tangent(a, b):
     index_a = rightmost_point_index(a)
-    index_b = leftmost_point_index(b)
+    index_b = 0
     done = False
 
     # get the upper points
@@ -72,7 +72,7 @@ def upper_tangent(a, b):
 
 def lower_tangent(a, b):
     index_a = rightmost_point_index(a)
-    index_b = leftmost_point_index(b)
+    index_b = 0
     done = False
 
     # get the lower points

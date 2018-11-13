@@ -1,6 +1,7 @@
 from random import *
 from tkinter import *
 import nil
+from win32api import GetSystemMetrics
 from Lab1 import Convex_hull
 from Lab1.DivideAndConquerConvexHull import daq_convex_hull
 
@@ -11,6 +12,11 @@ from Lab1.DivideAndConquerConvexHull import daq_convex_hull
 class Gui(Frame):
     list = []
     canvas = nil
+    scale = (2**28 - 1)
+    screen_width = GetSystemMetrics(0) - 30
+    screen_height = 500
+    margin = 3*10**6
+    filename = "input.txt"
 
     def __init__(self):
         super().__init__()
@@ -21,25 +27,26 @@ class Gui(Frame):
 
     def draw_point(self, point):
         python_green = "#476042"
-        radius = 3
-        x1, y1 = (point[0] - radius), (point[1] - radius)
-        x2, y2 = (point[0] + radius), (point[1] + radius)
+        radius = 1.5
+        x1, y1 = (point[0] + self.margin) * self.screen_width / self.scale - radius, \
+                 (point[1] + self.margin) * self.screen_height / self.scale - radius
+        x2, y2 = (point[0] + self.margin) * self.screen_width / self.scale + radius, \
+                 (point[1] + self.margin) * self.screen_height / self.scale + radius
         self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
 
     def randomize(self):
         self.clear_canvas()
         self.list.clear()
-        self.list.append((1520, 900))
-        self.list.append((1410, 500))
-        for i in range(20000):
-            self.list.append((randint(20, 1200), randint(20, 800)))
+        #self.list.append((900, 400))
+        #self.list.append((800, 500))
+        for i in range(100000):
+            self.list.append((randint(0, 2**28 - 1), randint(0, 2**28 - 1)))
             self.draw_point(self.list[i])
 
     def from_file(self):
         self.clear_canvas()
         self.list.clear()
-        filename = "input.txt"
-        file = open(filename, "r")
+        file = open(self.filename, "r")
         for line in file:
             try:
                 point = line.split(" ")
@@ -52,7 +59,10 @@ class Gui(Frame):
             self.draw_point(point)
 
     def draw_line(self, point1, point2):
-        self.canvas.create_line(point1[0], point1[1], point2[0], point2[1])
+        self.canvas.create_line((point1[0] + self.margin) * self.screen_width / self.scale,
+                                (point1[1] + self.margin) * self.screen_height / self.scale,
+                                (point2[0] + self.margin) * self.screen_width / self.scale,
+                                (point2[1] + self.margin) * self.screen_height / self.scale)
 
     def initUI(self):
         self.master.title("Lines")

@@ -10,7 +10,6 @@ def convex_hull(p):
         while len(l_upper) > 2 and left_turn(l_upper[len(l_upper)-3:len(l_upper)]):
             del l_upper[len(l_upper)-2]
 
-
     l_lower = [p[len(p)-1], p[len(p)-2]]  # add the last 2 points
     for i in reversed(range(0, len(p) - 2)):
         l_lower.append(p[i])
