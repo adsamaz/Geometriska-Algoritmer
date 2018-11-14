@@ -138,7 +138,3 @@ def leftmost_point_index(p):
             lmp_index = i
     return lmp_index
 
-
-list = [(0, 0), (1, -4), (-1, -5), (-5, -3), (-3, -1), (-2, -2), (-1, -1), (-2, -1), (-1, 1)]
-print(convex_hull(list))
-print(daq_convex_hull(list))
