@@ -1,10 +1,19 @@
+import math
+
 
 def smallest_circle_brute(p):
-    circle = Circle((2, 1), 5)
-    print(circle.center)
-    print(circle.radius)
+    c_min = Circle((0, 0), math.inf)
+
+    for a in p:
+        for b in p:
+            if b == a:
+                continue
+            c = Circle(a, b)
 
 
+
+def inside_circle_2P(a, b, d):
+    diameter = math.abs(a[0] - b[0])
 
 
 
