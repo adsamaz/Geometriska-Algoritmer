@@ -1,4 +1,5 @@
 import math
+from Lab1.Convex_hull import left_turn
 
 
 def smallest_circle_brute(p):
@@ -15,7 +16,7 @@ def smallest_circle_brute(p):
                 if not inside_circle_2p(circle, d):
                     valid = False
                     break
-            print("Circle: " + str(circle.midpoint) + str(circle.radius))
+            print("Circle2P: " + str(circle.midpoint) + str(circle.radius))
             if valid and circle.diameter < c_min.diameter:
                 c_min = circle
 
@@ -25,14 +26,17 @@ def smallest_circle_brute(p):
                 continue
             for c in p:
                 if c == a or c == b:
+                    valid = True
                     continue
                 circle = Circle3P(a, b, c)
                 for d in p:
                     if d == a or d == b or d == c:
                         continue
                 if not inside_circle_3p(circle, d):
+                    valid = False
                     break
-            if circle.diameter < c_min.diameter:
+            print("Circle3P: " + str(circle.radius))
+            if valid and circle.diameter < c_min.diameter:
                 c_min = circle
     return c_min
 
@@ -54,20 +58,19 @@ def inside_circle_2p(circle, d):
 
 def sort_clockwise(p1, p2, p3):
     p = [p1, p2, p3]
-    p.sort()
-    #[0], p1[1], p2[0], p2[1], p3[0], p3[1]
-    #if p[0][1] > p[1][1]:
-    #    if p[1][1] <
+    if left_turn(p):
+        return p1, p3, p2
+    return p1, p2, p3
 
 
 def inside_circle_3p(circle, d):
-    #sort_clockwise(circle.p1, circle.p2, circle.p3)
-    adx = circle.p1[0] - d[0]
-    ady = circle.p1[1] - d[1]
-    bdx = circle.p2[0] - d[0]
-    bdy = circle.p2[1] - d[1]
-    cdx = circle.p3[0] - d[0]
-    cdy = circle.p3[1] - d[1]
+    p1, p2, p3 = sort_clockwise(circle.p1, circle.p2, circle.p3)
+    adx = p1[0] - d[0]
+    ady = p1[1] - d[1]
+    bdx = p2[0] - d[0]
+    bdy = p2[1] - d[1]
+    cdx = p3[0] - d[0]
+    cdy = p3[1] - d[1]
 
     abdet = adx * bdy - bdx * ady
     bcdet = bdx * cdy - cdx * bdy
@@ -131,4 +134,4 @@ c = smallest_circle_brute([(1, 1), (1, 2), (2, 2), (2, 1), (4, 1), (3, 7), (10, 
 # c = Circle3P((1, 1), (2, 2), (1, 2))
 print(c)
 print(c.radius)
-print(c.midpoint)
+#print(c.midpoint)
