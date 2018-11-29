@@ -1,7 +1,9 @@
 import math
-from Lab1.Convex_hull import left_turn
+from random import shuffle
+from random import randint
 
 
+# Brute minidisk
 def smallest_circle_brute(p):
     c_min = Circle2P((-math.inf, -math.inf), (math.inf, math.inf))
     for a in p:
@@ -13,10 +15,10 @@ def smallest_circle_brute(p):
             for d in p:
                 if d == a or d == b:
                     continue
-                if not inside_circle_2p(circle, d):
+                if not inside_circle(circle, d):
                     valid = False
                     break
-            print("Circle2P: " + str(circle.midpoint) + str(circle.radius))
+            #print("Circle2P: " + str(circle.midpoint) + str(circle.radius))
             if valid and circle.diameter < c_min.diameter:
                 c_min = circle
 
@@ -32,13 +34,48 @@ def smallest_circle_brute(p):
                 for d in p:
                     if d == a or d == b or d == c:
                         continue
-                if not inside_circle_3p(circle, d):
+                if not inside_circle(circle, d):
                     valid = False
                     break
-            print("Circle3P: " + str(circle.radius))
+            #print("Circle3P: " + str(circle.midpoint) + str(circle.radius))
             if valid and circle.diameter < c_min.diameter:
                 c_min = circle
     return c_min
+
+
+# Randomized minidisk
+def smallest_circle_randomized(p):
+    shuffle(p)
+    disk = Circle2P(p[0], p[1])
+    for i in range(2, len(p)):
+        if not inside_circle(disk, p[i]):
+            disk = mini_disk_with_point(p[0:i], p[i])
+    return disk
+
+
+def mini_disk_with_point(p, q):
+    shuffle(p)
+    disk = Circle2P(p[0], q)
+    for i in range(1, len(p)):
+        if not inside_circle(disk, p[i]):
+            disk = mini_disk_with_2_points(p[0:i], p[i], q)
+    return disk
+
+
+def mini_disk_with_2_points(p, q1, q2):
+    disk = Circle2P(q1, q2)
+    for i in range(1, len(p)):
+        if not inside_circle(disk, p[i]):
+            disk = Circle3P(q1, q2, p[i])
+    return disk
+
+
+def inside_circle(circle, d):
+    dist = math.sqrt((circle.midpoint[0] - d[0])**2 + (circle.midpoint[1] - d[1])**2)
+    if dist <= circle.radius:
+        return True
+    else:
+        return False
 
 
 def mid_point(p1, p2):
@@ -47,43 +84,6 @@ def mid_point(p1, p2):
 
 def distance(p1, p2):
     return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
-
-
-def inside_circle_2p(circle, d):
-    distance = math.sqrt((circle.midpoint[0] - d[0])**2 + (circle.midpoint[1] - d[1])**2)
-    if distance <= circle.radius:
-        return True
-    else:
-        return False
-
-def sort_clockwise(p1, p2, p3):
-    p = [p1, p2, p3]
-    if left_turn(p):
-        return p1, p3, p2
-    return p1, p2, p3
-
-
-def inside_circle_3p(circle, d):
-    p1, p2, p3 = sort_clockwise(circle.p1, circle.p2, circle.p3)
-    adx = p1[0] - d[0]
-    ady = p1[1] - d[1]
-    bdx = p2[0] - d[0]
-    bdy = p2[1] - d[1]
-    cdx = p3[0] - d[0]
-    cdy = p3[1] - d[1]
-
-    abdet = adx * bdy - bdx * ady
-    bcdet = bdx * cdy - cdx * bdy
-    cadet = cdx * ady - adx * cdy
-    alift = adx * adx + ady * ady
-    blift = bdx * bdx + bdy * bdy
-    clift = cdx * cdx + cdy * cdy
-
-    sign = alift * bcdet + blift * cadet + clift * abdet
-    if sign >= 0:
-        return True
-    else:
-        return False
 
 
 class Circle2P(object):
@@ -100,38 +100,41 @@ class Circle3P(object):
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
-        self.diameter = math.inf
-        self.radius = math.inf
+        self.diameter = 0
+        self.radius = 0
+        self.midpoint = (math.inf, math.inf)
         x1, y1, x2, y2, x3, y3 = p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]
 
-        """A = x2 - x1
-        B = y2 - y1
-        C = x3 - x1
-        D = y3 - y1
-        E = A * (x1 + x2) + B * (y1 + y2)
-        F = C * (x1 + x3) + D * (y1 + y3)
-        G = 2 * (A * (y3 - y2) - B * (x3 - x2))
-        if G == 0:
-            self.radius = 0
-        x = (D * E - B * F) / G
-        y = (A * F - C * E) / G"""
         try:
-            ma = (y2-y1)/(x2-x1)
-            mb = (y3-y2)/(x3-x2)
-            x = (ma*mb*(y1-y3) + mb*(x1+x2) - ma*(x2+x3))/(2*(mb-ma))
-            if not ma == 0:
-                y = (-1/ma)*(x-(x1+x2)/2)+(y1+y2)/2
-            else:
-                y = (-1/mb)*(x-(x2+x3)/2)+(y2+y3)/2
+            x = ((x1 ** 2 + y1 ** 2) * (y2 - y3) + (x2 ** 2 + y2 ** 2) * (y3 - y1) + (x3 ** 2 + y3 ** 2) * (y1 - y2)) / (
+                        2 * (x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2))
 
-            self.radius = math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1))
-            self.diameter = self.radius * 2
+            y = ((x1 ** 2 + y1 ** 2) * (x3 - x2) + (x2 ** 2 + y2 ** 2) * (x1 - x3) + (x3 ** 2 + y3 ** 2) * (x2 - x1)) / (
+                        2 * (x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2))
+
+            self.midpoint = (x, y)
+            self.radius = distance(self.midpoint, p1)
         except ZeroDivisionError:
             print("No circle could be made")
 
 
-c = smallest_circle_brute([(1, 1), (1, 2), (2, 2), (2, 1), (4, 1), (3, 7), (10, 10)])
-# c = Circle3P((1, 1), (2, 2), (1, 2))
-print(c)
-print(c.radius)
-#print(c.midpoint)
+# TEST
+l = []
+for i in range(100):
+    l.append((randint(0, 2 ** 16 - 1), randint(0, 2 ** 16 - 1)))
+
+#cb = smallest_circle_brute([(1, 1), (1, 2), (2, 2), (2, 1), (4, 4)])
+#cr = smallest_circle_randomized([(1, 1), (1, 2), (2, 2), (2, 1), (4, 4)])
+
+cb = smallest_circle_brute(l)
+cr = smallest_circle_randomized(l)
+
+print("Brute:")
+print(cb)
+print(cb.radius)
+print(cb.midpoint)
+
+print("Randomized:")
+print(cr)
+print(cr.radius)
+print(cr.midpoint)
