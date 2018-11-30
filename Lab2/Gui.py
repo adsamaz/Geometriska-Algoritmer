@@ -36,8 +36,8 @@ class Gui(Frame):
     def randomize(self):
         self.clear_canvas()
         self.list.clear()
-        for i in range(10):
-            self.list.append((randint(200, 600), randint(100, 400)))
+        for i in range(100):
+            self.list.append((randint(200, 600), randint(130, 400)))
             self.draw_point(self.list[i])
 
     def from_file(self):

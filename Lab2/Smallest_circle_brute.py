@@ -18,11 +18,11 @@ def smallest_circle_brute(p):
                 if not inside_circle(circle, d):
                     valid = False
                     break
-            if valid and circle.diameter < c_min.diameter:
+            if valid and circle.radius < c_min.radius:
                 c_min = circle
     for a in p:
         for b in p:
-            if b == a:
+            if a == b:
                 continue
             for c in p:
                 if c == a or c == b:
@@ -32,11 +32,11 @@ def smallest_circle_brute(p):
                 for d in p:
                     if d == a or d == b or d == c:
                         continue
-                if not inside_circle(circle, d):
-                    valid = False
-                    break
-            if valid and circle.diameter < c_min.diameter:
-                c_min = circle
+                    if not inside_circle(circle, d):
+                        valid = False
+                        break
+                if valid and circle.radius < c_min.radius:
+                    c_min = circle
     return c_min
 
 
@@ -61,7 +61,7 @@ def mini_disk_with_point(p, q):
 
 def mini_disk_with_2_points(p, q1, q2):
     disk = Circle2P(q1, q2)
-    for i in range(1, len(p)):
+    for i in range(0, len(p)):
         if not inside_circle(disk, p[i]):
             disk = Circle3P(q1, q2, p[i])
     return disk
@@ -117,7 +117,7 @@ class Circle3P(object):
 
 
 # TEST
-l = []
+"""l = []
 for i in range(50):
     l.append((randint(200, 600), randint(100, 400)))
 
@@ -137,4 +137,4 @@ print("Randomized:")
 print(cr)
 print(cr.radius)
 print(cr.midpoint)
-print(cr.p1 + cr.p2)
+print(cr.p1 + cr.p2)"""
