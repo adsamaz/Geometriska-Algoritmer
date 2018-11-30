@@ -8,9 +8,9 @@ def smallest_circle_brute(p):
     c_min = Circle2P((-math.inf, -math.inf), (math.inf, math.inf))
     for a in p:
         for b in p:
-            valid = True
             if b == a:
                 continue
+            valid = True
             circle = Circle2P(a, b)
             for d in p:
                 if d == a or d == b:
@@ -18,18 +18,16 @@ def smallest_circle_brute(p):
                 if not inside_circle(circle, d):
                     valid = False
                     break
-            #print("Circle2P: " + str(circle.midpoint) + str(circle.radius))
             if valid and circle.diameter < c_min.diameter:
                 c_min = circle
-
     for a in p:
         for b in p:
             if b == a:
                 continue
             for c in p:
                 if c == a or c == b:
-                    valid = True
                     continue
+                valid = True
                 circle = Circle3P(a, b, c)
                 for d in p:
                     if d == a or d == b or d == c:
@@ -37,7 +35,6 @@ def smallest_circle_brute(p):
                 if not inside_circle(circle, d):
                     valid = False
                     break
-            #print("Circle3P: " + str(circle.midpoint) + str(circle.radius))
             if valid and circle.diameter < c_min.diameter:
                 c_min = circle
     return c_min
@@ -100,8 +97,8 @@ class Circle3P(object):
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
-        self.diameter = 0
-        self.radius = 0
+        self.diameter = math.inf
+        self.radius = math.inf
         self.midpoint = (math.inf, math.inf)
         x1, y1, x2, y2, x3, y3 = p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]
 
@@ -114,17 +111,18 @@ class Circle3P(object):
 
             self.midpoint = (x, y)
             self.radius = distance(self.midpoint, p1)
+            self.diameter = self.radius * 2
         except ZeroDivisionError:
             print("No circle could be made")
 
 
 # TEST
 l = []
-for i in range(100):
-    l.append((randint(0, 2 ** 16 - 1), randint(0, 2 ** 16 - 1)))
+for i in range(50):
+    l.append((randint(200, 600), randint(100, 400)))
 
-#cb = smallest_circle_brute([(1, 1), (1, 2), (2, 2), (2, 1), (4, 4)])
-#cr = smallest_circle_randomized([(1, 1), (1, 2), (2, 2), (2, 1), (4, 4)])
+#cb = smallest_circle_brute([(1, 1), (1, 2), (2, 2), (2, 1), (3, 2), (2, 3), (3, 3), (3, 1), (1, 3)])
+#cr = smallest_circle_randomized([(1, 1), (1, 2), (2, 2), (2, 1), (3, 2), (2, 3), (3, 3), (3, 1), (1, 3)])
 
 cb = smallest_circle_brute(l)
 cr = smallest_circle_randomized(l)
@@ -133,8 +131,10 @@ print("Brute:")
 print(cb)
 print(cb.radius)
 print(cb.midpoint)
+print(cb.p1 + cb.p2)
 
 print("Randomized:")
 print(cr)
 print(cr.radius)
 print(cr.midpoint)
+print(cr.p1 + cr.p2)

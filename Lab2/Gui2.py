@@ -1,97 +1,148 @@
-from random import *
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 from tkinter import *
-import nil
-from win32api import GetSystemMetrics
-from Lab2 import Smallest_circle_brute
-# GUI
+from Lab2.GenerateRandomPoints import generate_random_points
 from Lab2.Smallest_circle_brute import smallest_circle_brute
+from Lab2.Smallest_circle_brute import smallest_circle_randomized
+import sys
+
+import nil as nil
+
+_author__ = "Jesper Svensson"
+_date__= "2018-11-14"
 
 
 class Gui(Frame):
-    list = []
+    list_of_points = []
     canvas = nil
-    scale = (2**28 - 1)
-    #screen_width = GetSystemMetrics(0) - 30
-    screen_width = 1000
-    screen_height = 500
-    margin = 3*10**6
-    filename = "input.txt"
+    b_compute = nil
+    b_alg = nil
+    alg_opt = 1
+    number_of_points = 100
+    xmax = 900
+    width = 500
+    scale = (2**16)-1
+    margin = 10
 
-    def __init__(self):
+    def __init__(self, number_of_points, xmax, ymax):
         super().__init__()
-        self.initUI()
+        self.ymax = ymax - 40
+        self.xmax = xmax - 10
+        self.number_of_points = number_of_points
+        self.init_ui()
 
     def clear_canvas(self):
         self.canvas.delete("all")
 
-    def draw_point(self, point):
-        python_green = "#476042"
-        radius = 1.5
-        x1, y1 = (point[0] + self.margin) * self.screen_width / self.scale - radius, \
-                 (point[1] + self.margin) * self.screen_height / self.scale - radius
-        x2, y2 = (point[0] + self.margin) * self.screen_width / self.scale + radius, \
-                 (point[1] + self.margin) * self.screen_height / self.scale + radius
-        self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
+    def draw_point(self, point, color):
+        radius = 2
+        x1, y1 = self.scale_point_x(point[0]) - radius, self.scale_point_y(point[1]) - radius
+        x2, y2 = self.scale_point_x(point[0]) + radius, self.scale_point_y(point[1]) + radius
+        self.canvas.create_oval(x1, y1, x2, y2, fill=color)
 
-    def randomize(self):
+    def scale_point_x(self, i):
+        return (i + self.margin) * self.xmax/self.scale
+
+    def scale_point_y(self, i):
+        return (i + self.margin) * self.ymax / self.scale
+
+    def draw_line(self, point1, point2, color):
+        self.canvas.create_line(self.scale_point_x(point1[0]),
+                                self.scale_point_y(point1[1]),
+                                self.scale_point_x(point2[0]),
+                                self.scale_point_y(point2[1]), fill=color)
+
+    def draw_circle(self, mid_point, radius, color):
+        self.canvas.create_oval(self.scale_point_x(mid_point[0] - radius),
+                                self.scale_point_y(mid_point[1] + radius),
+                                self.scale_point_x(mid_point[0] + radius),
+                                self.scale_point_y(mid_point[1] - radius))
+
+    def generate_and_draw_rnd_points(self):
+        self.b_compute.config(state="normal")
         self.clear_canvas()
-        self.list.clear()
-        for i in range(10):
-            self.list.append((randint(0, 2**28 - 1), randint(0, 2**28 - 1)))
-            self.draw_point(self.list[i])
+        self.list_of_points.clear()
+        self.list_of_points = generate_random_points(self.number_of_points, self.scale, self.scale)
+        color = "#000000"
+        for i in range(self.number_of_points):
+            self.draw_point(self.list_of_points[i], color)
 
     def from_file(self):
+        self.b_compute.config(state="normal")
+        filename = "input.txt"
+        color = "#000000"
+        file = open(filename, "r")
         self.clear_canvas()
-        self.list.clear()
-        file = open(self.filename, "r")
+        self.list_of_points.clear()
         for line in file:
             try:
-                point = line.split(" ")
-                tuple = (int(point[0]), int(point[1]))
-                self.list.append(tuple)
+                temp = line.split(" ")
+                point = (int(temp[0]), int(temp[1]))
+                self.list_of_points.append(point)
+                self.draw_point(point, color)
             except():
                 print("Wrong file format")
 
-        for point in self.list:
-            self.draw_point(point)
+    def compute_smallest_circle(self):
+        color = "red"
+        if self.alg_opt == 1:
+            circle = smallest_circle_brute(self.list_of_points)
+            print(circle)
+            print(circle.midpoint)
+            print(circle.radius)
+            print(circle.p1)
+            print(circle.p2)
 
-    def draw_line(self, point1, point2):
-        self.canvas.create_line((point1[0] + self.margin) * self.screen_width / self.scale,
-                                (point1[1] + self.margin) * self.screen_height / self.scale,
-                                (point2[0] + self.margin) * self.screen_width / self.scale,
-                                (point2[1] + self.margin) * self.screen_height / self.scale)
+        else:
+            circle = smallest_circle_randomized(self.list_of_points)
+        #self.draw_circle((self.scale/2, self.scale/2), 0.5*self.scale, "red")
+        self.draw_circle(circle.midpoint, circle.radius, color)
+        self.draw_point(circle.midpoint, color)
 
-    def initUI(self):
-        self.master.title("Lines")
+    def change_alg(self):
+        self.alg_opt = (self.alg_opt + 1) % 2
+        if self.alg_opt == 1:
+            self.b_alg.config(text="MiniDisc")
+        else:
+            self.b_alg.config(text="BruteForce")
+
+    def init_ui(self):
+        self.master.title("Convex Hull")
         self.pack(fill=BOTH, expand=1)
-
-        b1 = Button(self, text="Randomize", command=self.randomize)
-        b2 = Button(self, text="From File", command=self.from_file)
-        b3 = Button(self, text="Compute with Alg 1", command=self.compute_smallest_circle_brute)
-        #b4 = Button(self, text="Compute with Alg 5", command=self.compute_convex_hull_daq)
-        b1.pack()
-        b2.pack()
-        b3.pack()
-      #  b4.pack()
-
         self.canvas = Canvas(self)
         self.canvas.pack(fill=BOTH, expand=1)
-
-    def compute_smallest_circle_brute(self):
-        l = smallest_circle_brute(self.list)
-        self.create_circle(l.midpoint[0], l.midpoint[1], l.diameter/2)
-
-    def create_circle(self, x, y, r):
-        self.canvas.create_oval(x - r, y - r, x + r, y + r)
+        b_random = Button(self, compound=BOTTOM, text="Random", command=self.generate_and_draw_rnd_points)
+        b_random.pack(side=LEFT, fill=BOTH, expand=1)
+        b_file = Button(self, compound=BOTTOM, text="Load file", command=self.from_file)
+        b_file.pack(side=LEFT, fill=BOTH, expand=1)
+        self.b_compute = Button(self, compound=BOTTOM, text="Compute", state=DISABLED, command=self.compute_smallest_circle)
+        self.b_compute.pack(side=LEFT, fill=BOTH, expand=1)
+        self.b_alg = Button(self, compound=BOTTOM, text="MiniDisc", command=self.change_alg)
+        self.b_alg.pack(side=LEFT, fill=BOTH, expand=1)
 
 
 def main():
     root = Tk()
-    ex = Gui()
-    root.geometry("400x250+300+300")
+
+    width = 600
+    height = 600
+
+    if len(sys.argv) == 2:
+        number_of_points = int(sys.argv[1])
+    else:
+        number_of_points = 10
+
+    ws = root.winfo_screenwidth()  # width of the screen
+    hs = root.winfo_screenheight()  # height of the screen
+    # calculate x and y coordinates for the Tk root window
+    x = (ws / 2) - (width / 2)
+    y = (hs / 2) - (height / 2)
+
+    gui = Gui(number_of_points, width, height)
+    root.geometry('%dx%d+%d+%d' % (width, height, x - 10, y - 30))
     root.mainloop()
 
 
-main()
-
-
+if __name__ == '__main__':
+    main()
