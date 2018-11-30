@@ -2,8 +2,8 @@ from random import *
 from tkinter import *
 import nil
 from win32api import GetSystemMetrics
-from Lab2.Smallest_circle_brute import smallest_circle_brute
-from Lab2.Smallest_circle_brute import smallest_circle_randomized
+from Lab2.Smallest_circle import smallest_circle_brute
+from Lab2.Smallest_circle import smallest_circle_randomized
 
 # GUI
 
