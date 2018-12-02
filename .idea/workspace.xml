@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1204bfa6-914a-4047-8c0a-fb277c861eaa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab2/Gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab2/Smallest_circle_brute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Smallest_circle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/Smallest_circle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Smallest_circle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/input.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,11 +54,12 @@
     <session id="-1269186488">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.14" value="1" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.14" value="2" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -74,27 +76,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="3" />
+          <entry key="Python Console" value="42" />
           <entry key="dummy" value="15" />
-          <entry key="py" value="5965" />
-          <entry key="txt" value="482" />
+          <entry key="py" value="8483" />
+          <entry key="txt" value="524" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="497" />
-          <entry key="Python" value="5968" />
+          <entry key="PLAIN_TEXT" value="539" />
+          <entry key="Python" value="8525" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="123" column="27" lean-forward="true" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="101" />
+            <state relative-caret-position="408">
+              <caret line="114" column="33" lean-forward="true" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -105,24 +107,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab2/Gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+            <state relative-caret-position="235">
+              <caret line="100" column="37" lean-forward="true" selection-start-line="100" selection-start-column="37" selection-end-line="100" selection-end-column="37" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <marker date="1543584222826" expanded="true" signature="1761:1770" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab2/Smallest_rectangle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="22" column="47" lean-forward="true" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
+            <state relative-caret-position="1357">
+              <caret line="125" column="9" lean-forward="true" selection-start-line="125" selection-start-column="9" selection-end-line="125" selection-end-column="63" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <marker date="1543590001351" expanded="true" signature="231:236" ph="..." />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,8 +131,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab1/Gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+            <state relative-caret-position="405">
+              <caret line="88" column="62" lean-forward="true" selection-start-line="88" selection-start-column="62" selection-end-line="88" selection-end-column="62" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,8 +143,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="121" selection-start-line="121" selection-end-line="128" selection-end-column="20" />
+            <state relative-caret-position="252">
+              <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -149,17 +152,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab2/input.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="11" selection-start-column="11" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lab2/Rotating_callipers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="85">
+              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -188,11 +182,12 @@
         <option value="$PROJECT_DIR$/Lab2/Rotating_callipers.py" />
         <option value="$PROJECT_DIR$/Lab2/test_circle.py" />
         <option value="$PROJECT_DIR$/Lab2/GenerateRandomPoints.py" />
-        <option value="$PROJECT_DIR$/Lab2/input.txt" />
         <option value="$PROJECT_DIR$/Lab2/Gui2.py" />
         <option value="$PROJECT_DIR$/Lab2/Smallest_circle_brute.py" />
         <option value="$PROJECT_DIR$/Lab2/Gui.py" />
         <option value="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" />
+        <option value="$PROJECT_DIR$/Lab2/input.txt" />
+        <option value="$PROJECT_DIR$/Lab2/Smallest_circle.py" />
       </list>
     </option>
   </component>
@@ -258,7 +253,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Smallest_rectangle">
+  <component name="RunManager" selected="Python.Gui (1)">
     <configuration name="Gui (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Geometriska-Algoritmer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -373,8 +368,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Smallest_rectangle" />
         <item itemvalue="Python.Gui (1)" />
+        <item itemvalue="Python.Smallest_rectangle" />
         <item itemvalue="Python.Smallest_circle_brute" />
         <item itemvalue="Python.Gui2" />
         <item itemvalue="Python.test_circle" />
@@ -395,15 +390,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15421304" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15384616" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34341636" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34273317" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -437,27 +432,29 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Lab2/test_circle.py" />
-    <entry file="file://$PROJECT_DIR$/Lab2/GenerateRandomPoints.py">
+    <entry file="file://$PROJECT_DIR$/Lab2/GenerateRandomPoints.py" />
+    <entry file="file://$PROJECT_DIR$/Lab2/Gui2.py" />
+    <entry file="file://$PROJECT_DIR$/Lab1/Convex_hull.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="26" selection-start-column="26" selection-end-column="26" />
+        <state relative-caret-position="94">
+          <caret line="32" selection-start-line="32" selection-end-line="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/input.txt">
+    <entry file="file://$PROJECT_DIR$/Lab2/Gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/Gui2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="53" column="74" lean-forward="true" selection-start-line="53" selection-start-column="74" selection-end-line="53" selection-end-column="74" />
+        <state relative-caret-position="235">
+          <caret line="100" column="37" lean-forward="true" selection-start-line="100" selection-start-column="37" selection-end-line="100" selection-end-column="37" />
           <folding>
-            <element signature="e#44#65#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -468,55 +465,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/Gui.py">
+    <entry file="file://$PROJECT_DIR$/Lab2/input.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <marker date="1543584222826" expanded="true" signature="1761:1770" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lab1/Convex_hull.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="32" selection-start-line="32" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="121" selection-start-line="121" selection-end-line="128" selection-end-column="20" />
+        <state relative-caret-position="85">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lab1/Gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="123" column="27" lean-forward="true" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="101" />
+        <state relative-caret-position="405">
+          <caret line="88" column="62" lean-forward="true" selection-start-line="88" selection-start-column="62" selection-end-line="88" selection-end-column="62" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lab2/Smallest_rectangle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="22" column="47" lean-forward="true" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
+        <state relative-caret-position="1357">
+          <caret line="125" column="9" lean-forward="true" selection-start-line="125" selection-start-column="9" selection-end-line="125" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="114" column="33" lean-forward="true" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1543590001351" expanded="true" signature="231:236" ph="..." />
           </folding>
         </state>
       </provider>

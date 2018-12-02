@@ -1,9 +1,9 @@
 from random import *
 from tkinter import *
 import nil
-from win32api import GetSystemMetrics
-from Lab2.Smallest_circle import smallest_circle_brute
-from Lab2.Smallest_circle import smallest_circle_randomized
+#from win32api import GetSystemMetrics
+from Lab2.Smallest_circle import smallest_circle_brute, smallest_circle_randomized
+from Lab2.Smallest_rectangle import smallest_rectangle
 
 # GUI
 
@@ -12,7 +12,7 @@ class Gui(Frame):
     list = []
     canvas = nil
     scale = (2**28 - 1)
-    screen_width = GetSystemMetrics(0) - 30
+    #screen_width = GetSystemMetrics(0) - 30
     screen_height = 500
     margin = 3*10**6
     filename = "input.txt"
@@ -61,7 +61,7 @@ class Gui(Frame):
                                 point2[0],
                                 point2[1])
 
-    def draw_circle(self, mid_point, radius, color):
+    def draw_circle(self, mid_point, radius):
         self.canvas.create_oval(mid_point[0] - radius,
                                 mid_point[1] + radius,
                                 mid_point[0] + radius,
@@ -73,27 +73,34 @@ class Gui(Frame):
 
         b1 = Button(self, text="Randomize", command=self.randomize)
         b2 = Button(self, text="From File", command=self.from_file)
-        b3 = Button(self, text="Compute with Alg 1", command=self.compute_smallest_circle_brute)
-        b4 = Button(self, text="Compute with Alg 5", command=self.compute_smallest_circle_randomized)
+        b3 = Button(self, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
+        b4 = Button(self, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
+        b5 = Button(self, text="Smallest rectangle with Rotating Callipers", command=self.compute_smallest_rectangle)
         b1.pack()
         b2.pack()
         b3.pack()
         b4.pack()
+        b5.pack()
 
         self.canvas = Canvas(self)
         self.canvas.pack(fill=BOTH, expand=1)
 
     def compute_smallest_circle_brute(self):
-        color = "red"
         circle = smallest_circle_brute(self.list)
-        self.draw_circle(circle.midpoint, circle.radius, color)
+        self.draw_circle(circle.midpoint, circle.radius)
         self.draw_point(circle.midpoint)
 
     def compute_smallest_circle_randomized(self):
-        color = "red"
         circle = smallest_circle_randomized(self.list)
-        self.draw_circle(circle.midpoint, circle.radius, color)
+        self.draw_circle(circle.midpoint, circle.radius)
         self.draw_point(circle.midpoint)
+
+    def compute_smallest_rectangle(self):
+        rectangle = smallest_rectangle(self.list)
+        print(rectangle.area)
+        vertices = rectangle.vertices
+        for i in range(0, 4):
+            self.draw_line(vertices[i - 1], vertices[i])
 
 
 def main():

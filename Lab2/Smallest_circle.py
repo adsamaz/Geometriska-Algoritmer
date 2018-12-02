@@ -113,7 +113,7 @@ class Circle3P(object):
             self.radius = distance(self.midpoint, p1)
             self.diameter = self.radius * 2
         except ZeroDivisionError:
-            print("No circle could be made")
+            pass
 
 
 # TEST
