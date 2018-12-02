@@ -6,7 +6,7 @@ from mpmath import *
 
 
 def smallest_rectangle(p):
-    #mp.dps = 6
+    mp.dps = 10
     ch = convex_hull(p)
     print(ch)
     # Find extreme points
