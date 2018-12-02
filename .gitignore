@@ -1,2 +1,4 @@
 *.xml
+.idea/*.xml
+__pycache
 Lab1.zip
