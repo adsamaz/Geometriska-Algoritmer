@@ -4,6 +4,9 @@ import nil
 #from win32api import GetSystemMetrics
 from Lab2.Smallest_circle import smallest_circle_brute, smallest_circle_randomized
 from Lab2.Smallest_rectangle import smallest_rectangle
+from Lab1.Convex_hull import convex_hull
+from Lab1.DivideAndConquerConvexHull import daq_convex_hull
+
 
 # GUI
 
@@ -36,7 +39,7 @@ class Gui(Frame):
     def randomize(self):
         self.clear_canvas()
         self.list.clear()
-        for i in range(100):
+        for i in range(50):
             self.list.append((randint(200, 600), randint(130, 400)))
             self.draw_point(self.list[i])
 
@@ -76,11 +79,15 @@ class Gui(Frame):
         b3 = Button(self, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
         b4 = Button(self, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
         b5 = Button(self, text="Smallest rectangle with Rotating Callipers", command=self.compute_smallest_rectangle)
+        b6 = Button(self, text="Convex Hull Incremental", command=self.compute_convex_hull)
+        b7 = Button(self, text="Convex Hull Divide and Conquer", command=self.compute_convex_hull_daq)
         b1.pack()
         b2.pack()
         b3.pack()
         b4.pack()
         b5.pack()
+        b6.pack()
+        b7.pack()
 
         self.canvas = Canvas(self)
         self.canvas.pack(fill=BOTH, expand=1)
@@ -99,8 +106,18 @@ class Gui(Frame):
         rectangle = smallest_rectangle(self.list)
         print(rectangle.area)
         vertices = rectangle.vertices
-        for i in range(0, 4):
+        for i in range(0, len(vertices)):
             self.draw_line(vertices[i - 1], vertices[i])
+
+    def compute_convex_hull(self):
+        ch = convex_hull(self.list)
+        for i in range(0, len(ch)):
+            self.draw_line(ch[i - 1], ch[i])
+
+    def compute_convex_hull_daq(self):
+        ch = daq_convex_hull(self.list)
+        for i in range(0, len(ch)):
+            self.draw_line(ch[i - 1], ch[i])
 
 
 def main():
