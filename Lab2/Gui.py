@@ -4,9 +4,10 @@ import nil
 #from win32api import GetSystemMetrics
 from Lab2.Smallest_circle import smallest_circle_brute, smallest_circle_randomized
 from Lab2.Smallest_rectangle import smallest_rectangle
+from Lab2.Visibility_polygon import Visibility_polygon_class
 from Lab1.Convex_hull import convex_hull
 from Lab1.DivideAndConquerConvexHull import daq_convex_hull
-
+from sympy import Point, Segment, Line, Ray, pi, Polygon, evalf, tan, atan, oo
 
 # GUI
 
@@ -19,6 +20,7 @@ class Gui(Frame):
     screen_height = 500
     margin = 3*10**6
     filename = "input.txt"
+    origin = (0, 0)
 
     def __init__(self):
         super().__init__()
@@ -36,12 +38,43 @@ class Gui(Frame):
                  point[1] + radius
         self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
 
-    def randomize(self):
+    def draw_segment(self, point):
+        python_green = "#476042"
+        radius = 1.5
+        p1 = point.p1
+        p2 = point.p2
+        x1, y1 = p1.x - radius, \
+                 p1.y - radius
+        x2, y2 = p1.x + radius, \
+                 p1.y + radius
+        self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
+        x1, y1 = p2.x - radius, \
+                 p2.y - radius
+        x2, y2 = p2.x + radius, \
+                 p2.y + radius
+        self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
+        self.draw_line(p1, p2)
+
+    def randomize_points(self):
         self.clear_canvas()
         self.list.clear()
         for i in range(10):
             self.list.append((randint(200, 600), randint(130, 400)))
             self.draw_point(self.list[i])
+
+    def randomize_segments(self):
+        self.clear_canvas()
+        self.list.clear()
+        i = 0
+        while i < 5:
+            segment = Segment( Point(randint(200, 600), randint(130, 400)), Point(randint(200, 600), randint(130, 400)) )
+            if self.intersects(segment):
+                continue
+            self.list.append(segment)
+            self.draw_segment(self.list[i])
+            i += 1
+        self.origin = (randint(200, 600), randint(130, 400))
+        self.draw_point(self.origin)
 
     def from_file(self):
         self.clear_canvas()
@@ -74,20 +107,25 @@ class Gui(Frame):
         self.master.title("Lines")
         self.pack(fill=BOTH, expand=1)
 
-        b1 = Button(self, text="Randomize", command=self.randomize)
+        b1 = Button(self, text="Randomize Points", command=self.randomize_points)
+        b8 = Button(self, text="Randomize Segments", command=self.randomize_segments)
         b2 = Button(self, text="From File", command=self.from_file)
         b3 = Button(self, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
         b4 = Button(self, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
         b5 = Button(self, text="Smallest rectangle with Rotating Callipers", command=self.compute_smallest_rectangle)
         b6 = Button(self, text="Convex Hull Incremental", command=self.compute_convex_hull)
         b7 = Button(self, text="Convex Hull Divide and Conquer", command=self.compute_convex_hull_daq)
+        b9 = Button(self, text="Visibility Polygon", command=self.compute_visibility_polygon)
+
         b1.pack()
+        b8.pack()
         b2.pack()
         b3.pack()
         b4.pack()
         b5.pack()
         b6.pack()
         b7.pack()
+        b9.pack()
 
         self.canvas = Canvas(self)
         self.canvas.pack(fill=BOTH, expand=1)
@@ -118,6 +156,18 @@ class Gui(Frame):
         ch = daq_convex_hull(self.list)
         for i in range(0, len(ch)):
             self.draw_line(ch[i - 1], ch[i])
+
+    def compute_visibility_polygon(self):
+        vpc = Visibility_polygon_class()
+        vp = vpc.visibility_polygon(self.list, self.origin)
+        for i in range(0, len(vp)):
+            self.draw_line(vp[i - 1].p, vp[i].p)
+
+    def intersects(self, segment):
+        for s in self.list:
+            if not segment.intersection(s) == []:
+                return True
+        return False
 
 
 def main():
