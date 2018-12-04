@@ -1,5 +1,5 @@
 from math import inf, ceil
-from sympy import Point, Line, Ray, pi, Polygon, evalf, tan, atan
+from sympy import Point, Line, Ray, pi, Polygon, evalf, tan, atan, oo
 from Lab1.Convex_hull import convex_hull
 from Lab1.DivideAndConquerConvexHull import rightmost_point_index, get_prev_index
 from mpmath import *
@@ -75,17 +75,30 @@ def smallest_rectangle(p):
         # Set the next point in the convex hull as the origin of the Ray that alligned
         # and decrement the index
 
+        slope_1 = next_ray_1.slope
+        slope_2 = next_ray_2.slope
+        slope_3 = next_ray_3.slope
+        slope_4 = next_ray_4.slope
+
         if min_angle == angle_1:
-            ray_1 = Ray(next_ray_1.p2, angle=atan(next_ray_1.slope))
+            if slope_1 == oo:
+                slope_1 = pi/2
+            ray_1 = Ray(next_ray_1.p2, angle=atan(slope_1))
             x_min_index = get_prev_index(ch, x_min_index)
         elif min_angle == angle_2:
-            ray_2 = Ray(next_ray_2.p2, angle=atan(next_ray_2.slope))
+            if slope_2 == oo:
+                slope_2 = pi/2
+            ray_2 = Ray(next_ray_2.p2, angle=atan(slope_2))
             y_min_index = get_prev_index(ch, y_min_index)
         elif min_angle == angle_3:
-            ray_3 = Ray(next_ray_3.p2, angle=atan(next_ray_3.slope))
+            if slope_3 == oo:
+                slope_3 = pi/2
+            ray_3 = Ray(next_ray_3.p2, angle=atan(slope_3))
             x_max_index = get_prev_index(ch, x_max_index)
         elif min_angle == angle_4:
-            ray_4 = Ray(next_ray_4.p2, angle=atan(next_ray_4.slope))
+            if slope_4 == oo:
+                slope_4 = pi/2
+            ray_4 = Ray(next_ray_4.p2, angle=atan(slope_4))
             y_max_index = get_prev_index(ch, y_max_index)
         else:
             print("fail")
@@ -102,7 +115,7 @@ def positive_angle(angle):
 
 
 def uppermost_point_index(p):
-    ump = - inf
+    ump = - oo
     ump_index = 0
     for i in range(0, len(p)):
         if p[i][1] > ump:
@@ -112,7 +125,7 @@ def uppermost_point_index(p):
 
 
 def lowermost_point_index(p):
-    lmp = inf
+    lmp = oo
     lmp_index = 0
     for i in range(0, len(p)):
         if p[i][1] < lmp:
