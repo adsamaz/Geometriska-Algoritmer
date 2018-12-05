@@ -1,6 +1,8 @@
 from sympy import Line, Ray, pi, Polygon, evalf, tan, atan, oo, Segment
 from sympy import Point2D
 import math
+from Lab1.DivideAndConquerConvexHull import rightmost_point_index, leftmost_point_index
+from Lab2.Smallest_rectangle import uppermost_point_index, lowermost_point_index
 
 # Global constants
 START_VERTEX = 0
@@ -15,19 +17,14 @@ class Point(object):
     twin = 0
     type = DEFAULT_VERTEX
 
-    def __init__(self, p, twin):
+    def __init__(self, p):
         self.p = p
-        self.x = p.x
-        self.y = p.y
-        self.twin = twin
+        self.x = p[0]
+        self.y = p[1]
+        self.type = DEFAULT_VERTEX
 
 # Main
 class Visibility_polygon_class(object):
-    origin = (0, 0)
-    refvec = (0, 1)
-    segments = []
-    event_queue = []
-    status = 0
 
     def __init__(self):
         self.origin = (0, 0)
@@ -40,16 +37,51 @@ class Visibility_polygon_class(object):
     def visibility_polygon(self, segments, origin):
         self.origin = origin
         self.segments = segments
+        self.create_pointlist_from_segments()
+        self.create_bounding_box()
         self.create_event_queue()
         return self.event_queue
 
+    # Create an event queue with all points and their connections (not sorted yet!)
+    def create_pointlist_from_segments(self):
+        for s in self.segments:
+            p1 = Point(s.p1)
+            p2 = Point(s.p2)
+            p1.twin = p2
+            p2.twin = p1
+            self.event_queue.append(p1)
+            self.event_queue.append(p2)
+
+    def create_bounding_box(self):
+        # Find extreme points
+        top_y = 600#uppermost_point_index(self.event_queue)
+        bottom_y = 340 #lowermost_point_index(self.event_queue)
+        right_x = 200 #rightmost_point_index(self.event_queue)
+        left_x = 130#leftmost_point_index(self.event_queue)
+        margin = 40
+        # Create the bounding box and add it to event queue
+        p1 = Point((right_x + margin, top_y + margin))
+        p2 = Point((left_x - margin, top_y + margin))
+        p3 = Point((left_x - margin, bottom_y - margin))
+        p4 = Point((right_x + margin, bottom_y - margin))
+        #p1b = Point((right_x + margin, top_y + margin))
+       # p2b = Point((left_x - margin, top_y + margin))
+        #p3b = Point((left_x - margin, bottom_y - margin))
+        #p4b = Point((right_x + margin, bottom_y - margin))
+        p1.twin = p2
+        p2.twin = p3
+        p3.twin = p4
+        p4.twin = p1
+
+        p = [p1, p2, p3, p4]
+        self.event_queue.extend(p)
+        #self.event_queue.append(Point((right_x + margin, top_y + margin), Point((left_x + margin, top_y + margin))))
+        #self.event_queue.append(Point((left_x + margin, top_y + margin), Point((left_x + margin, bottom_y + margin))))
+        #self.event_queue.append(Point((left_x + margin, bottom_y + margin), Point((right_x + margin, bottom_y + margin))))
+       # self.event_queue.append(Point((right_x + margin, bottom_y + margin), Point((right_x + margin, top_y + margin))))
+
     # Create event queue
     def create_event_queue(self):
-        # Create a event queue with all points and their connections
-        for s in self.segments:
-            self.event_queue.append(Point(p=s.p1, twin=s.p2))
-            self.event_queue.append(Point(p=s.p2, twin=s.p1))
-
         # Sort the points in clockwise order
         self.event_queue = sorted(self.event_queue, key=self.get_key)
         # Add type to each point and their connected point. START_VERTEX or END_VERTEX
