@@ -91,11 +91,11 @@ class Gui(Frame):
         for point in self.list:
             self.draw_point(point)
 
-    def draw_line(self, point1, point2):
+    def draw_line(self, point1, point2, color="#000000"):
         self.canvas.create_line(point1[0],
                                 point1[1],
                                 point2[0],
-                                point2[1])
+                                point2[1], fill=color)
 
     def draw_circle(self, mid_point, radius):
         self.canvas.create_oval(mid_point[0] - radius,
@@ -161,7 +161,7 @@ class Gui(Frame):
         vpc = Visibility_polygon_class()
         vp = vpc.visibility_polygon(self.list, self.origin)
         for i in range(0, len(vp)):
-            self.draw_line(vp[i - 1].p, vp[i].p)
+            self.draw_line(vp[i - 1].p, vp[i].p, "red")
 
     def intersects(self, segment):
         for s in self.list:
