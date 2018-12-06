@@ -1,6 +1,6 @@
 from sympy import Line, Ray, Point, pi, Polygon, evalf, tan, atan, oo, Segment, intersection
 #from pybst import avltree
-from bintrees import AVLTree
+from bintrees import FastAVLTree
 import math
 # from Lab1.DivideAndConquerConvexHull import rightmost_point_index, leftmost_point_index
 # from Lab2.Smallest_rectangle import uppermost_point_index, lowermost_point_index
@@ -44,17 +44,20 @@ class Visibility_polygon_class(object):
         self.segments = []
         self.event_queue = []
         self.status = 0
-        self.status = AVLTree()
+        self.status = FastAVLTree()
+        self.visibility_polygon = []
 
     # Starts here!
-    def visibility_polygon(self, segments, origin):
+    def get_visibility_polygon(self, segments, origin):
         self.origin = origin
         self.segments = segments
         self.add_bounding_box()
         self.create_event_queue_from_segments()
         self.sort_event_queue()
         self.initialize_status()
-        return self.status
+        self.perform_sweep()
+        print(self.visibility_polygon)
+        return self.visibility_polygon
 
     def add_bounding_box(self):
         # Find extreme points
@@ -118,9 +121,25 @@ class Visibility_polygon_class(object):
                 if ep.type == DEFAULT_VERTEX:
                     ep.type = START_VERTEX
                     ep.twin.type = END_VERTEX
-
-        print(intersections)
         print(self.status)
+
+    def perform_sweep(self):
+        print(self.status.min_item())
+        self.visibility_polygon.append(self.status.min_item()[1].p1)   # Add closest point in status to the visibility polygon
+
+
+        for ep in self.event_queue[1:]:
+            if ep.type == START_VERTEX:
+                status_segment = StatusSegment(ep, ep.twin)
+                ep.status_segment = status_segment
+                ep.twin.status_segment = status_segment
+                self.status.insert(distance(ep.p, self.origin), status_segment)
+                #current_ray = Ray(self.origin, ep.p)
+                self.visibility_polygon.append(self.status.min_item()[1].p1)
+
+            elif ep.type == END_VERTEX:
+                self.status.remove(distance(ep.status_segment.p1.p, self.origin))
+                self.visibility_polygon.append(self.status.min_item()[1].p1)
 
     def sort_one_segment_cw(self, segment):
         points = sorted([segment.p1, segment.p2], key=self.clockwiseangle_and_distance)

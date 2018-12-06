@@ -53,7 +53,7 @@ class Gui(Frame):
         x2, y2 = p2.x + radius, \
                  p2.y + radius
         self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
-        self.draw_line(p1, p2)
+        self.draw_line(p1, p2, width=2)
 
     def randomize_points(self):
         self.clear_canvas()
@@ -91,11 +91,11 @@ class Gui(Frame):
         for point in self.list:
             self.draw_point(point)
 
-    def draw_line(self, point1, point2, color="#000000"):
+    def draw_line(self, point1, point2, color="#000000", width = 1):
         self.canvas.create_line(point1[0],
                                 point1[1],
                                 point2[0],
-                                point2[1], fill=color)
+                                point2[1], fill=color, width=width)
 
     def draw_circle(self, mid_point, radius):
         self.canvas.create_oval(mid_point[0] - radius,
@@ -159,13 +159,12 @@ class Gui(Frame):
 
     def compute_visibility_polygon(self):
         vpc = Visibility_polygon_class()
-        #vp = vpc.visibility_polygon(self.list, self.origin)
-        vp = vpc.visibility_polygon(self.list, self.origin).values()
-        for i in vp:
-            self.draw_line(i.p1.p, i.p2.p, "red")
-        #for i in range(0, len(vp)):
-            #self.draw_line(vp[i].p1, vp[i].p2, "red")
-            #self.draw_line(vp[i - 1].p, vp[i].p, "red")
+        vp = vpc.get_visibility_polygon(self.list, self.origin)
+        #vp = vpc.visibility_polygon(self.list, self.origin).values()
+        #for i in rangle:
+        #   self.draw_line(i.p, i.p, "red")
+        for i in range(0, len(vp)):
+            self.draw_line(vp[i - 1].p, vp[i].p, "red")
 
     def intersects(self, segment):
         for s in self.list:
