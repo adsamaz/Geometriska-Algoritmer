@@ -1,20 +1,23 @@
-from sympy import Line, Ray, pi, Polygon, evalf, tan, atan, oo, Segment
-from sympy import Point2D
+from sympy import Line, Ray, Point, pi, Polygon, evalf, tan, atan, oo, Segment, intersection
+#from pybst import avltree
+from bintrees import AVLTree
 import math
-from Lab1.DivideAndConquerConvexHull import rightmost_point_index, leftmost_point_index
-from Lab2.Smallest_rectangle import uppermost_point_index, lowermost_point_index
+# from Lab1.DivideAndConquerConvexHull import rightmost_point_index, leftmost_point_index
+# from Lab2.Smallest_rectangle import uppermost_point_index, lowermost_point_index
+from Lab2.Smallest_circle import distance
 
 # Global constants
 START_VERTEX = 0
 END_VERTEX = 1
 DEFAULT_VERTEX = -1
 
-# Point class
-class Point(object):
+# Event-Point class
+class EventPoint(object):
     p = (0, 0)
     x = 0
     y = 0
     twin = 0
+    status_segment = 0
     type = DEFAULT_VERTEX
 
     def __init__(self, p):
@@ -22,6 +25,15 @@ class Point(object):
         self.x = p[0]
         self.y = p[1]
         self.type = DEFAULT_VERTEX
+
+# Status-Segment class
+class StatusSegment(object):
+    p1 = (0, 0)
+    p2 = (0, 0)
+
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
 
 # Main
 class Visibility_polygon_class(object):
@@ -32,63 +44,87 @@ class Visibility_polygon_class(object):
         self.segments = []
         self.event_queue = []
         self.status = 0
+        self.status = AVLTree()
 
     # Starts here!
     def visibility_polygon(self, segments, origin):
         self.origin = origin
         self.segments = segments
-        self.create_pointlist_from_segments()
-        self.create_bounding_box()
-        self.create_event_queue()
-        return self.event_queue
+        self.add_bounding_box()
+        self.create_event_queue_from_segments()
+        self.sort_event_queue()
+        self.initialize_status()
+        return self.status
+
+    def add_bounding_box(self):
+        # Find extreme points
+        margin = 40
+        top_y = 400 + margin #uppermost_point_index(self.event_queue)
+        bottom_y = 130 - margin #lowermost_point_index(self.event_queue)
+        right_x = 600 + margin #rightmost_point_index(self.event_queue)
+        left_x = 200 - margin #leftmost_point_index(self.event_queue)
+        # Create the bounding box and add it to event queue
+        s1 = Segment(Point(right_x, top_y), Point(right_x, bottom_y))
+        s2 = Segment(Point(right_x, bottom_y - 1), Point(left_x, bottom_y))
+        s3 = Segment(Point(left_x, bottom_y + 1), Point(left_x, top_y))
+        s4 = Segment(Point(left_x, top_y + 1), Point(right_x, top_y + 1))
+
+        p = [s1, s2, s3, s4]
+        self.segments.extend(p)
 
     # Create an event queue with all points and their connections (not sorted yet!)
-    def create_pointlist_from_segments(self):
+    def create_event_queue_from_segments(self):
         for s in self.segments:
-            p1 = Point(s.p1)
-            p2 = Point(s.p2)
+            p1 = EventPoint(s.p1)
+            p2 = EventPoint(s.p2)
             p1.twin = p2
             p2.twin = p1
             self.event_queue.append(p1)
             self.event_queue.append(p2)
 
-    def create_bounding_box(self):
-        # Find extreme points
-        top_y = 600#uppermost_point_index(self.event_queue)
-        bottom_y = 340 #lowermost_point_index(self.event_queue)
-        right_x = 200 #rightmost_point_index(self.event_queue)
-        left_x = 130#leftmost_point_index(self.event_queue)
-        margin = 40
-        # Create the bounding box and add it to event queue
-        p1 = Point((right_x + margin, top_y + margin))
-        p2 = Point((left_x - margin, top_y + margin))
-        p3 = Point((left_x - margin, bottom_y - margin))
-        p4 = Point((right_x + margin, bottom_y - margin))
-        #p1b = Point((right_x + margin, top_y + margin))
-       # p2b = Point((left_x - margin, top_y + margin))
-        #p3b = Point((left_x - margin, bottom_y - margin))
-        #p4b = Point((right_x + margin, bottom_y - margin))
-        p1.twin = p2
-        p2.twin = p3
-        p3.twin = p4
-        p4.twin = p1
-
-        p = [p1, p2, p3, p4]
-        self.event_queue.extend(p)
-        #self.event_queue.append(Point((right_x + margin, top_y + margin), Point((left_x + margin, top_y + margin))))
-        #self.event_queue.append(Point((left_x + margin, top_y + margin), Point((left_x + margin, bottom_y + margin))))
-        #self.event_queue.append(Point((left_x + margin, bottom_y + margin), Point((right_x + margin, bottom_y + margin))))
-       # self.event_queue.append(Point((right_x + margin, bottom_y + margin), Point((right_x + margin, top_y + margin))))
-
     # Create event queue
-    def create_event_queue(self):
+    def sort_event_queue(self):
         # Sort the points in clockwise order
         self.event_queue = sorted(self.event_queue, key=self.get_key)
-        # Add type to each point and their connected point. START_VERTEX or END_VERTEX
-        for p in self.event_queue:
-            if p.type == DEFAULT_VERTEX:
-                p.type = START_VERTEX
-                p.twin.type = END_VERTEX
+
+    def initialize_status(self):
+        sweep_ray = Ray(self.origin, self.event_queue[0].p)
+        intersections = []
+        for ep in self.event_queue:
+            segment = Segment(ep.p, ep.twin.p)
+            intersection_point = sweep_ray.intersection(segment)
+
+            if len(intersection_point) > 0:
+                intersections.extend(intersection_point)
+                sorted_s = self.sort_one_segment_cw(segment)
+                # If the segments first point is the current event-point
+                if sorted_s.p1 == ep:
+                    status_segment = StatusSegment(ep, ep.twin)
+                    ep.status_segment = status_segment
+                    ep.twin.status_segment = status_segment
+                    ep.type = START_VERTEX
+                    ep.twin.type = END_VERTEX
+                    self.status.insert(distance(ep.p, self.origin), status_segment)
+                    # If the segments second point is the current event-point
+                else:
+                    status_segment = StatusSegment(ep.twin, ep)
+                    ep.status_segment = status_segment
+                    ep.twin.status_segment = status_segment
+                    ep.type = END_VERTEX
+                    ep.twin.type = START_VERTEX
+                    self.status.insert(distance(ep.twin.p, self.origin), status_segment)
+            else:
+                # Event-points not hit by the ray gets a type
+                if ep.type == DEFAULT_VERTEX:
+                    ep.type = START_VERTEX
+                    ep.twin.type = END_VERTEX
+
+        print(intersections)
+        print(self.status)
+
+    def sort_one_segment_cw(self, segment):
+        points = sorted([segment.p1, segment.p2], key=self.clockwiseangle_and_distance)
+        return Segment(points[0], points[1])
 
     # Gets key for sorting
     def get_key(self, point):
@@ -117,10 +153,9 @@ class Visibility_polygon_class(object):
         return angle, lenvector
 
 
-
 # = [Segment(Point2D(2,3), Point2D(5,2)),Segment(Point2D(4,1), Point2D(3,1)), Segment(Point2D(1,2),Point2D(2,1)), Segment(Point2D(3,1),Point2D(3,3))]
-pts = [Point2D(2,3), Point2D(5,2), Point2D(4,1), Point2D(3,1), Point2D(1,2), Point2D(2,1), Point2D(3,1)]
-v = Visibility_polygon_class()
+#pts = [Point(2,3), Point(5,2), Point(4,1), Point(3,1), Point(1,2), Point(2,1), Point(3,1)]
+# = Visibility_polygon_class()
 
-print(pts)
-print(sorted(pts, key=v.clockwiseangle_and_distance))
+#print(pts)
+#print(sorted(pts, key=v.clockwiseangle_and_distance))

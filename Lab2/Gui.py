@@ -159,9 +159,13 @@ class Gui(Frame):
 
     def compute_visibility_polygon(self):
         vpc = Visibility_polygon_class()
-        vp = vpc.visibility_polygon(self.list, self.origin)
-        for i in range(0, len(vp)):
-            self.draw_line(vp[i - 1].p, vp[i].p, "red")
+        #vp = vpc.visibility_polygon(self.list, self.origin)
+        vp = vpc.visibility_polygon(self.list, self.origin).values()
+        for i in vp:
+            self.draw_line(i.p1.p, i.p2.p, "red")
+        #for i in range(0, len(vp)):
+            #self.draw_line(vp[i].p1, vp[i].p2, "red")
+            #self.draw_line(vp[i - 1].p, vp[i].p, "red")
 
     def intersects(self, segment):
         for s in self.list:
