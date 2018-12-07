@@ -92,10 +92,10 @@ class Gui(Frame):
             self.draw_point(point)
 
     def draw_line(self, point1, point2, color="#000000", width = 1):
-        self.canvas.create_line(point1[0],
-                                point1[1],
-                                point2[0],
-                                point2[1], fill=color, width=width)
+        self.canvas.create_line(float(point1[0]),
+                                float(point1[1]),
+                                float(point2[0]),
+                                float(point2[1]), fill=color, width=width)
 
     def draw_circle(self, mid_point, radius):
         self.canvas.create_oval(mid_point[0] - radius,
@@ -164,7 +164,7 @@ class Gui(Frame):
         #for i in rangle:
         #   self.draw_line(i.p, i.p, "red")
         for i in range(0, len(vp)):
-            self.draw_line(vp[i - 1].p, vp[i].p, "red")
+            self.draw_line(vp[i - 1], vp[i], "red")
 
     def intersects(self, segment):
         for s in self.list:
