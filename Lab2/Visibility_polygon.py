@@ -133,7 +133,11 @@ class Visibility_polygon_class(object):
                 status_segment = StatusSegment(ep, ep.twin)
                 ep.status_segment = status_segment
                 ep.twin.status_segment = status_segment
+                first_in_status = self.status.min_item()
                 self.status.insert(distance(ep.p, self.origin), status_segment)
+                if not self.status.min_item() == first_in_status:
+
+
                 #current_ray = Ray(self.origin, ep.p)
                 self.visibility_polygon.append(self.status.min_item()[1].p1)
 
