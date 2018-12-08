@@ -66,7 +66,7 @@ class Gui(Frame):
         self.clear_canvas()
         self.list.clear()
         i = 0
-        while i < 3:
+        while i < 4:
             segment = Segment( Point(randint(200, 600), randint(130, 400)), Point(randint(200, 600), randint(130, 400)) )
             if self.intersects(segment):
                 continue
@@ -160,9 +160,9 @@ class Gui(Frame):
     def compute_visibility_polygon(self):
         vpc = Visibility_polygon_class()
         vp = vpc.get_visibility_polygon(self.list, self.origin)
-        #vp = vpc.visibility_polygon(self.list, self.origin).values()
-        #for i in rangle:
-        #   self.draw_line(i.p, i.p, "red")
+        #vp = vpc.get_visibility_polygon(self.list, self.origin).values()
+        #for i in vp:
+           #self.draw_line(i.p1.p, i.p2.p, "red")
         for i in range(0, len(vp)):
             self.draw_line(vp[i - 1], vp[i], "red")
 
