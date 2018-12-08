@@ -66,7 +66,7 @@ class Gui(Frame):
         self.clear_canvas()
         self.list.clear()
         i = 0
-        while i < 5:
+        while i < 3:
             segment = Segment( Point(randint(200, 600), randint(130, 400)), Point(randint(200, 600), randint(130, 400)) )
             if self.intersects(segment):
                 continue

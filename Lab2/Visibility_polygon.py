@@ -51,7 +51,6 @@ class Visibility_polygon_class(object):
         self.sort_event_queue()
         self.initialize_status()
         self.perform_sweep()
-        print(self.visibility_polygon)
         return self.visibility_polygon
 
     def add_bounding_box(self):
@@ -63,9 +62,9 @@ class Visibility_polygon_class(object):
         left_x = 200 - margin #leftmost_point_index(self.event_queue)
         # Create the bounding box and add it to event queue
         s1 = Segment(Point(right_x, top_y), Point(right_x, bottom_y))
-        s2 = Segment(Point(right_x, bottom_y - 1), Point(left_x, bottom_y))
+        s2 = Segment(Point(right_x - 1, bottom_y), Point(left_x, bottom_y))
         s3 = Segment(Point(left_x, bottom_y + 1), Point(left_x, top_y))
-        s4 = Segment(Point(left_x, top_y + 1), Point(right_x, top_y + 1))
+        s4 = Segment(Point(left_x + 1, top_y), Point(right_x, top_y + 1))
 
         p = [s1, s2, s3, s4]
         self.segments.extend(p)
@@ -87,66 +86,70 @@ class Visibility_polygon_class(object):
 
     def initialize_status(self):
         sweep_ray = Ray(self.origin, self.event_queue[0].p)
-        intersections = []
         for ep in self.event_queue:
-            segment = Segment(ep.p, ep.twin.p)
-            intersection_point = sweep_ray.intersection(segment)
+            if ep.type == DEFAULT_VERTEX:
+                segment = Segment(ep.p, ep.twin.p)
+                intersection_point = sweep_ray.intersection(segment)
 
-            if len(intersection_point) > 0:
-                intersections.extend(intersection_point)
-                sorted_s = self.sort_one_segment_cw(segment)
-                # If the segments first point is the current event-point
-                if sorted_s.p1 == ep:
-                    status_segment = StatusSegment(ep, ep.twin)
-                    ep.status_segment = status_segment
-                    ep.twin.status_segment = status_segment
-                    ep.type = START_VERTEX
-                    ep.twin.type = END_VERTEX
-                    self.status.insert(distance(ep.p, self.origin), status_segment)
-                    # If the segments second point is the current event-point
+                if len(intersection_point) > 0:
+                    sorted_s = self.sort_one_segment_cw(segment)
+                    # If the segments first point is the current event-point
+                    if sorted_s.p1 == ep:
+                        status_segment = StatusSegment(ep, ep.twin)
+                        ep.status_segment = status_segment
+                        ep.twin.status_segment = status_segment
+                        ep.type = START_VERTEX
+                        ep.twin.type = END_VERTEX
+                        self.status.insert(distance(ep.p, self.origin), status_segment)
+                        # If the segments second point is the current event-point
+                    else:
+                        status_segment = StatusSegment(ep.twin, ep)
+                        ep.status_segment = status_segment
+                        ep.twin.status_segment = status_segment
+                        ep.type = END_VERTEX
+                        ep.twin.type = START_VERTEX
+                        self.status.insert(distance(ep.twin.p, self.origin), status_segment)
                 else:
-                    status_segment = StatusSegment(ep.twin, ep)
-                    ep.status_segment = status_segment
-                    ep.twin.status_segment = status_segment
-                    ep.type = END_VERTEX
-                    ep.twin.type = START_VERTEX
-                    self.status.insert(distance(ep.twin.p, self.origin), status_segment)
-            else:
-                # Event-points not hit by the ray gets a type
-                if ep.type == DEFAULT_VERTEX:
+                    # Event-points not hit by the ray gets a type
                     ep.type = START_VERTEX
                     ep.twin.type = END_VERTEX
-        print(self.status)
 
     def perform_sweep(self):
         print(self.status.min_item())
-        self.visibility_polygon.append(self.status.min_item()[1].p1.p)   # Add closest point in status to the visibility polygon
+        #self.visibility_polygon.append(self.status.min_item()[1].p1.p)   # Add closest point in status to the visibility polygon
 
-        for ep in self.event_queue[1:]:
+        for ep in self.event_queue:
             if ep.type == START_VERTEX:
                 status_segment = StatusSegment(ep, ep.twin)
                 ep.status_segment = status_segment
                 ep.twin.status_segment = status_segment
-                first_in_status = self.status.min_item()[1]
-                self.status.insert(distance(ep.p, self.origin), status_segment)
-                new_first_in_status = self.status.min_item()[1]
-                if new_first_in_status != first_in_status:
-                    intersection_point = Ray(self.origin, new_first_in_status.p1.p).intersection(first_in_status.segment)
-                    print(intersection_point)
-                    if len(intersection_point) > 0:
-                        self.visibility_polygon.append(intersection_point[0])
+                if self.status.is_empty():
+                    self.status.insert(distance(ep.p, self.origin), status_segment)
                     self.visibility_polygon.append(ep.p)
+                else:
+                    first_in_status = self.status.min_item()[1]
+                    self.status.insert(distance(ep.p, self.origin), status_segment)
+                    new_first_in_status = self.status.min_item()[1]
+                    if new_first_in_status != first_in_status:
+                        intersection_point = Ray(self.origin, ep.p).intersection(first_in_status.segment)
+                        if len(intersection_point) > 0:
+                            self.visibility_polygon.append(intersection_point[0])
+                        self.visibility_polygon.append(ep.p)
 
             elif ep.type == END_VERTEX:
                 first_in_status = self.status.min_item()[1]
                 self.status.remove(distance(ep.status_segment.p1.p, self.origin))
-                new_first_in_status = self.status.min_item()[1]
-                if new_first_in_status != first_in_status:
-                    intersection_point = Ray(self.origin, new_first_in_status.p1.p).intersection(first_in_status.segment)
-                    print(intersection_point)
+                if self.status.is_empty():
                     self.visibility_polygon.append(ep.p)
-                    if len(intersection_point) > 0:
-                        self.visibility_polygon.append(intersection_point[0])
+                else:
+                    new_first_in_status = self.status.min_item()[1]
+                    if new_first_in_status != first_in_status:
+                        intersection_point = Ray(self.origin, ep.p).intersection(new_first_in_status.segment)
+                        self.visibility_polygon.append(ep.p)
+                        if len(intersection_point) > 0:
+                            self.visibility_polygon.append(intersection_point[0])
+                        else:
+                            print("HEJ")
 
     def sort_one_segment_cw(self, segment):
         points = sorted([segment.p1, segment.p2], key=self.clockwiseangle_and_distance)
