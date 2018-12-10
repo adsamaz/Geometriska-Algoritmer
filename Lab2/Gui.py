@@ -106,29 +106,30 @@ class Gui(Frame):
     def initUI(self):
         self.master.title("Lines")
         self.pack(fill=BOTH, expand=1)
-
-        b1 = Button(self, text="Randomize Points", command=self.randomize_points)
-        b8 = Button(self, text="Randomize Segments", command=self.randomize_segments)
-        b2 = Button(self, text="From File", command=self.from_file)
-        b3 = Button(self, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
-        b4 = Button(self, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
-        b5 = Button(self, text="Smallest rectangle with Rotating Callipers", command=self.compute_smallest_rectangle)
-        b6 = Button(self, text="Convex Hull Incremental", command=self.compute_convex_hull)
-        b7 = Button(self, text="Convex Hull Divide and Conquer", command=self.compute_convex_hull_daq)
-        b9 = Button(self, text="Visibility Polygon", command=self.compute_visibility_polygon)
-
-        b1.pack()
-        b8.pack()
-        b2.pack()
-        b3.pack()
-        b4.pack()
-        b5.pack()
-        b6.pack()
-        b7.pack()
-        b9.pack()
-
         self.canvas = Canvas(self)
         self.canvas.pack(fill=BOTH, expand=1)
+
+        b1 = Button(self, compound=TOP, text="Randomize Points", command=self.randomize_points)
+        b8 = Button(self, compound=TOP, text="Randomize Segments", command=self.randomize_segments)
+        b2 = Button(self, compound=TOP, text="From File", command=self.from_file)
+        b3 = Button(self, compound=TOP, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
+        b4 = Button(self, compound=TOP, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
+        b5 = Button(self, compound=TOP, text="Smallest rectangle RC", command=self.compute_smallest_rectangle)
+        b6 = Button(self, compound=TOP, text="Convex Hull Inc", command=self.compute_convex_hull)
+        b7 = Button(self, compound=TOP, text="Convex Hull DaQ", command=self.compute_convex_hull_daq)
+        b9 = Button(self, compound=TOP, text="Visibility Polygon", command=self.compute_visibility_polygon)
+
+        b1.pack(side=LEFT, fill=BOTH, expand=1)
+        b8.pack(side=LEFT, fill=BOTH, expand=1)
+        b2.pack(side=LEFT, fill=BOTH, expand=1)
+        b3.pack(side=LEFT, fill=BOTH, expand=1)
+        b4.pack(side=LEFT, fill=BOTH, expand=1)
+        b5.pack(side=LEFT, fill=BOTH, expand=1)
+        b6.pack(side=LEFT, fill=BOTH, expand=1)
+        b7.pack(side=LEFT, fill=BOTH, expand=1)
+        b9.pack(side=LEFT, fill=BOTH, expand=1)
+
+
 
     def compute_smallest_circle_brute(self):
         circle = smallest_circle_brute(self.list)
