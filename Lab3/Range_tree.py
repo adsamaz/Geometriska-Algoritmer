@@ -196,9 +196,9 @@ class Range_tree:
 
         return v.number_of_points, v.max_weight
 
-list = [(1, 2), (3, 1), (2, 1), (5, 1), (4, 4), (1, 1), (2, 5), (4, 1), (9, 4), (8, 4), (4, 5), (2, 4) ]
+"""list = [(1, 2), (3, 1), (2, 1), (5, 1), (4, 4), (1, 1), (2, 5), (4, 1), (9, 4), (8, 4), (4, 5), (2, 4) ]
 tree = Range_tree(list)
 interval = [5, 8]
 print(tree.range_query(interval))
 print(tree.number_in_range(interval))
-print(tree.max_weight_in_range(interval))
+print(tree.max_weight_in_range(interval))"""
