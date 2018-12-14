@@ -1,11 +1,6 @@
 from sympy import Line, Ray, Point, pi, Polygon, evalf, tan, atan, oo, Segment, intersection
-#from pybst import avltree
-#from bintrees import FastAVLTree
 from sortedcontainers import SortedDict
 import math
-# from Lab1.DivideAndConquerConvexHull import rightmost_point_index, leftmost_point_index
-# from Lab2.Smallest_rectangle import uppermost_point_index, lowermost_point_index
-#from Lab2.Smallest_circle import distance
 
 # Global constants
 START_VERTEX = 0

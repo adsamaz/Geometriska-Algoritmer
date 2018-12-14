@@ -1,6 +1,5 @@
 import math
 from random import shuffle
-from random import randint
 
 
 # Brute minidisk

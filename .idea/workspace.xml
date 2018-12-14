@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Lab3/Range_tree.py" line="89" />
+    <bookmark url="file://$PROJECT_DIR$/Lab3/Range_tree.py" line="88" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1204bfa6-914a-4047-8c0a-fb277c861eaa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/Smallest_circle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Smallest_circle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab2/Visibility_polygon.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2/Visibility_polygon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3/Range_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3/Range_tree.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,42 +58,42 @@
     <session id="-1269186488">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.13" value="3" />
-          <entry key="project.open.time.14" value="4" />
+          <entry key="project.open.time.14" value="5" />
           <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.3" value="3" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="16" />
+          <entry key="py" value="17" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="16" />
+          <entry key="Python" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="308" />
           <entry key="dummy" value="15" />
-          <entry key="py" value="18345" />
+          <entry key="py" value="18347" />
           <entry key="txt" value="638" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="653" />
-          <entry key="Python" value="18653" />
+          <entry key="Python" value="18655" />
         </counts>
       </usages-collector>
     </session>
@@ -99,31 +103,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab2/Visibility_polygon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#92#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="92" selection-start-column="92" selection-end-column="92" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="93" column="48" selection-start-line="93" selection-start-column="48" selection-end-line="93" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lab2/Smallest_rectangle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16">
-              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="96">
+              <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,11 +130,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lab3/Range_tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="16">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16">
+              <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -178,12 +182,12 @@
         <option value="$PROJECT_DIR$/Lab2/GenerateRandomPoints.py" />
         <option value="$PROJECT_DIR$/Lab2/Gui2.py" />
         <option value="$PROJECT_DIR$/Lab2/Smallest_circle_brute.py" />
-        <option value="$PROJECT_DIR$/Lab2/Smallest_circle.py" />
         <option value="$PROJECT_DIR$/Lab2/input.txt" />
-        <option value="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" />
-        <option value="$PROJECT_DIR$/Lab2/Visibility_polygon.py" />
         <option value="$PROJECT_DIR$/Lab2/Gui.py" />
+        <option value="$PROJECT_DIR$/Lab2/Visibility_polygon.py" />
+        <option value="$PROJECT_DIR$/Lab2/Smallest_rectangle.py" />
         <option value="$PROJECT_DIR$/Lab3/Range_tree.py" />
+        <option value="$PROJECT_DIR$/Lab2/Smallest_circle.py" />
       </list>
     </option>
   </component>
@@ -271,7 +275,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Range_tree">
+  <component name="RunManager" selected="Python.Gui (1)">
     <configuration name="Gui (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Geometriska-Algoritmer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -386,8 +390,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Range_tree" />
         <item itemvalue="Python.Gui (1)" />
+        <item itemvalue="Python.Range_tree" />
         <item itemvalue="Python.Visibility_polygon" />
         <item itemvalue="Python.Smallest_rectangle" />
         <item itemvalue="Python.Smallest_circle_brute" />
@@ -425,7 +429,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21258135" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21258135" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -508,13 +512,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="114" column="33" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
     <entry file="file://$PROJECT_DIR$/Lab1/DivideAndConquerConvexHull.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -530,30 +527,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_rectangle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lab2/Visibility_polygon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#92#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="92" selection-start-column="92" selection-end-column="92" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lab3/Range_tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="16">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_circle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lab2/Smallest_rectangle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

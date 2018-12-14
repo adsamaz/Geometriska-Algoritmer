@@ -1,5 +1,4 @@
-from math import inf, ceil
-from sympy import Point, Line, Ray, pi, Polygon, evalf, tan, atan, oo
+from sympy import Line, Ray, pi, Polygon, atan, oo
 from Lab1.Convex_hull import convex_hull
 from Lab1.DivideAndConquerConvexHull import rightmost_point_index, get_prev_index
 from mpmath import *
