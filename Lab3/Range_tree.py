@@ -135,31 +135,31 @@ class Range_tree:
                 return False
         else:
             # Follow the path to x and report the points in subtrees right of the path
-            max_weight_left = v_split.max_weight
+            max_weight_left = 0
             v = v_split.left_subtree
             while isinstance(v, Node):
                 if interval[0] <= v.splitting_value:
+                    if isinstance(v.right_subtree, Node):
+                        max_weight_left = max(max_weight_left, v.right_subtree.max_weight)
+                    else:
+                        max_weight_left = max(max_weight_left, v.right_subtree.w)
                     v = v.left_subtree
                 else:
-                    if isinstance(v.right_subtree, Node):
-                        max_weight_left = v.right_subtree.max_weight
-                    else:
-                        max_weight_left = v.right_subtree.w
                     v = v.right_subtree
             if v.p >= interval[0] and v.p <= interval[1]:
                 max_weight_left = max(v.w, max_weight_left)
 
             # follow the path to x' and report the points in subtrees left of the path
-            max_weight_right = v_split.max_weight
+            max_weight_right = 0
             v = v_split.right_subtree
             while isinstance(v, Node):
                 if interval[1] >= v.splitting_value:
+                    if isinstance(v.left_subtree, Node):
+                        max_weight_right = max(max_weight_right, v.left_subtree.max_weight)
+                    else:
+                        max_weight_right = max(max_weight_right, v.left_subtree.w)
                     v = v.right_subtree
                 else:
-                    if isinstance(v.left_subtree, Node):
-                        max_weight_right = v.left_subtree.max_weight
-                    else:
-                        max_weight_right = v.left_subtree.w
                     v = v.left_subtree
             if v.p >= interval[0] and v.p <= interval[1]:
                 max_weight_right = max(v.w, max_weight_right)
