@@ -30,10 +30,11 @@ class Range_tree:
     def create_tree(self, points):
         length = len(points)
         if length == 1:
-            return Leaf(points.pop())
+            return Leaf(points[0])
         else:
-            left_subtree = self.create_tree(points[:length//2])
-            right_subtree = self.create_tree(points[length//2:])
+            mid = length // 2
+            left_subtree = self.create_tree(points[:mid])
+            right_subtree = self.create_tree(points[mid:])
 
             if isinstance(left_subtree, Node):
                 splitting_value = left_subtree.max_value
@@ -79,7 +80,7 @@ class Range_tree:
                 else:
                     v = v.left_subtree
             if v.p >= interval[0] and v.p <= interval[1]:
-                reported_leaves = v.report() + reported_leaves
+                reported_leaves =  reported_leaves + v.report()
 
         return reported_leaves
 
@@ -114,7 +115,7 @@ class Range_tree:
                 if interval[1] >= v.splitting_value:
                     v = v.right_subtree
                 else:
-                    if isinstance(v.left_subtree, Node):
+                    if isinstance(v.right_subtree, Node):
                         count -= v.right_subtree.number_of_points
                     else:
                         count -= 1
@@ -145,6 +146,8 @@ class Range_tree:
                     else:
                         max_weight_left = v.right_subtree.w
                     v = v.right_subtree
+            if v.p >= interval[0] and v.p <= interval[1]:
+                max_weight_left = max(v.w, max_weight_left)
 
             # follow the path to x' and report the points in subtrees left of the path
             max_weight_right = v_split.max_weight
@@ -158,21 +161,19 @@ class Range_tree:
                     else:
                         max_weight_right = v.left_subtree.w
                     v = v.left_subtree
+            if v.p >= interval[0] and v.p <= interval[1]:
+                max_weight_right = max(v.w, max_weight_right)
 
         return max(max_weight_left, max_weight_right)
 
-    #def __repr__(self):
-        #return "Splitting value: " + str(self.root.splitting_value) + " Max value: " + str(self.root.max_value)
-
     def find_split_node(self, interval):
         v = self.root
-        while isinstance(v, Node) and (interval[1] <= v.splitting_value or interval[0] > v.splitting_value):
+        while isinstance(v, Node) and (interval[1] < v.splitting_value or interval[0] > v.splitting_value):
             if interval[1] <= v.splitting_value:
                 v = v.left_subtree
             else:
                 v = v.right_subtree
         return v
-
 
     def report_subtree(self, node):
         if isinstance(node, Leaf):
