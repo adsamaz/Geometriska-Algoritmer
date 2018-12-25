@@ -25,10 +25,6 @@ class Node:
         return "Node: " + str(self.p) + "\n"
 
 
-def get_x(point):
-    return point[0]
-
-
 def ear_clip(points):
     triangles = []
     nodes = []

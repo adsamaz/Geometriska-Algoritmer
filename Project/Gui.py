@@ -9,13 +9,17 @@ from Lab1.Convex_hull import convex_hull
 from Lab1.DivideAndConquerConvexHull import daq_convex_hull
 from Project.Generate_polygon import generate_polygon
 from Project.Ear_clipping import ear_clip
-from sympy import Point, Segment, Line, Ray, pi, Polygon, evalf, tan, atan, oo
+from sympy import Point, Segment
+from shapely.geometry import Point as shPoint
+from shapely.geometry.polygon import Polygon as shPolygon
 
 # GUI
 
 
 class Gui(Frame):
     list = []
+    clicked_points = []
+    triangulation = []
     canvas = nil
     scale = (2**28 - 1)
     #screen_width = GetSystemMetrics(0) - 30
@@ -81,6 +85,7 @@ class Gui(Frame):
     def randomize_polygon(self):
         self.clear_canvas()
         self.list.clear()
+        self.clicked_points.clear()
         i = 0
         self.list = generate_polygon(10)
         while i < len(self.list):
@@ -115,23 +120,32 @@ class Gui(Frame):
                                 mid_point[0] + radius,
                                 mid_point[1] - radius)
 
+    def get_origin(self, event_origin):
+        x, y = event_origin.x, event_origin.y
+        self.clicked_points.append((x, y))
+        self.draw_point((x, y))
+        print(x, y)
+
     def initUI(self):
         self.master.title("Lines")
         self.pack(fill=BOTH, expand=1)
+
         self.canvas = Canvas(self)
+        self.canvas.bind("<Button-1>", self.get_origin)
         self.canvas.pack(fill=BOTH, expand=1)
 
         b1 = Button(self, compound=TOP, text="Randomize Points", command=self.randomize_points)
         b8 = Button(self, compound=TOP, text="Randomize Segments", command=self.randomize_segments)
         b10 = Button(self, compound=TOP, text="Randomize Polygon", command=self.randomize_polygon)
         b2 = Button(self, compound=TOP, text="From File", command=self.from_file)
-        b3 = Button(self, compound=TOP, text="Smallest Circle with Brute Force", command=self.compute_smallest_circle_brute)
-        b4 = Button(self, compound=TOP, text="Smallest Circle with Randomization", command=self.compute_smallest_circle_randomized)
-        b5 = Button(self, compound=TOP, text="Smallest rectangle RC", command=self.compute_smallest_rectangle)
-        b6 = Button(self, compound=TOP, text="Convex Hull Inc", command=self.compute_convex_hull)
-        b7 = Button(self, compound=TOP, text="Convex Hull DaQ", command=self.compute_convex_hull_daq)
+        b3 = Button(self, compound=TOP, text="Smallest Circle(Brute)", command=self.compute_smallest_circle_brute)
+        b4 = Button(self, compound=TOP, text="Smallest Circle(Randomized)", command=self.compute_smallest_circle_randomized)
+        b5 = Button(self, compound=TOP, text="Smallest rectangle(RC)", command=self.compute_smallest_rectangle)
+        b6 = Button(self, compound=TOP, text="Convex Hull(Inc)", command=self.compute_convex_hull)
+        b7 = Button(self, compound=TOP, text="Convex Hull(DaC)", command=self.compute_convex_hull_dac)
         b9 = Button(self, compound=TOP, text="Visibility Polygon", command=self.compute_visibility_polygon)
         b11 = Button(self, compound=TOP, text="Triangulate", command=self.compute_triangulation)
+        b12 = Button(self, compound=TOP, text="Shortest Path", command=self.compute_shortest_path)
 
         b1.pack(side=LEFT, fill=BOTH, expand=1)
         b8.pack(side=LEFT, fill=BOTH, expand=1)
@@ -144,8 +158,7 @@ class Gui(Frame):
         b7.pack(side=LEFT, fill=BOTH, expand=1)
         b9.pack(side=LEFT, fill=BOTH, expand=1)
         b11.pack(side=LEFT, fill=BOTH, expand=1)
-
-
+        b12.pack(side=LEFT, fill=BOTH, expand=1)
 
     def compute_smallest_circle_brute(self):
         circle = smallest_circle_brute(self.list)
@@ -169,7 +182,7 @@ class Gui(Frame):
         for i in range(0, len(ch)):
             self.draw_line(ch[i - 1], ch[i])
 
-    def compute_convex_hull_daq(self):
+    def compute_convex_hull_dac(self):
         ch = daq_convex_hull(self.list)
         for i in range(0, len(ch)):
             self.draw_line(ch[i - 1], ch[i])
@@ -184,14 +197,25 @@ class Gui(Frame):
             self.draw_line(vp[i - 1], vp[i], "red")
 
     def compute_triangulation(self):
-        triangulation = ear_clip(self.list)
-        for t in triangulation:
+        self.triangulation = ear_clip(self.list)
+        for t in self.triangulation:
             self.draw_line(t.p1.p, t.p2.p, "red")
             self.draw_line(t.p2.p, t.p3.p, "red")
             self.draw_line(t.p3.p, t.p1.p, "red")
         for i in range(0, len(self.list)):
             self.draw_line(self.list[i-1], self.list[i])
 
+    def compute_shortest_path(self):
+        polygon = shPolygon(self.list)
+        if len(self.clicked_points) == 2:
+            p1 = self.clicked_points[0]
+            p2 = self.clicked_points[1]
+            if polygon.contains(shPoint(p1)) and polygon.contains(shPoint(p2)):
+                print("points are inside")
+            else:
+                print("Error, points not inside")
+        else:
+            print("Error, wrong number of points, expected 2")
 
     def intersects(self, segment):
         for s in self.list:
