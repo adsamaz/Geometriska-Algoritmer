@@ -126,7 +126,6 @@ class Gui(Frame):
         x, y = event_origin.x, event_origin.y
         self.clicked_points.append((x, y))
         self.draw_point((x, y))
-        print(x, y)
 
     def initUI(self):
         self.master.title("Lines")

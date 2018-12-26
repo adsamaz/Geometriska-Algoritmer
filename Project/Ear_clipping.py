@@ -9,7 +9,9 @@ class Triangle:
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
-        self.nodes = [p1, p2, p3]
+
+    def get_nodes(self):
+        return [self.p1, self.p2, self.p3]
 
     def __repr__(self):
         return "Triangle: " + str(self.p1.p) + str(self.p2.p) + str(self.p3.p) + "\n"
