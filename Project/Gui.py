@@ -7,6 +7,7 @@ from Lab2.Smallest_rectangle import smallest_rectangle
 from Lab2.Visibility_polygon import Visibility_polygon_class
 from Lab1.Convex_hull import convex_hull
 from Lab1.DivideAndConquerConvexHull import daq_convex_hull
+from Project.Shortest_path import shortest_path
 from Project.Generate_polygon import generate_polygon
 from Project.Ear_clipping import ear_clip
 from sympy import Point, Segment
@@ -14,6 +15,7 @@ from shapely.geometry import Point as shPoint
 from shapely.geometry.polygon import Polygon as shPolygon
 
 # GUI
+
 
 
 class Gui(Frame):
@@ -211,7 +213,9 @@ class Gui(Frame):
             p1 = self.clicked_points[0]
             p2 = self.clicked_points[1]
             if polygon.contains(shPoint(p1)) and polygon.contains(shPoint(p2)):
-                print("points are inside")
+                sp = shortest_path(p1, p2, self.list, self.triangulation)
+                for i in range(len(sp)):
+                    self.draw_line(sp[i-1].p, sp[i].p, "green")
             else:
                 print("Error, points not inside")
         else:

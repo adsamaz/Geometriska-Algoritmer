@@ -9,6 +9,7 @@ class Triangle:
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
+        self.nodes = [p1, p2, p3]
 
     def __repr__(self):
         return "Triangle: " + str(self.p1.p) + str(self.p2.p) + str(self.p3.p) + "\n"
@@ -60,7 +61,15 @@ def is_convex(prev, point, next):
 
 def contains_no_points(prev, point, next, nodes):
     for n in nodes:
-        if right_turn([prev.p, point.p, n.p]) and right_turn([point.p, next.p, n.p]) and right_turn([next.p, prev.p, n.p]):
+        if point_inside_polygon(n.p, [prev, point, next]):
+            return False
+    return True
+
+def point_inside_polygon(p, polygon):
+    for i in range(len(polygon)):
+        if right_turn([polygon[i].p, polygon[(i+1) % len(polygon)].p, p]):
+            continue
+        else:
             return False
     return True
 
