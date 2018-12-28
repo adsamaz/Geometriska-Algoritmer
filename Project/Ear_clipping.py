@@ -9,6 +9,27 @@ class Triangle:
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
+        self.visited = False
+        self.neighbours_visited = 0
+
+    def visited_all_neighbours(self):
+        nodes = self.get_nodes()
+        visited_triangles = []
+        for n in nodes:
+            for t in n.triangles:
+                if self.find_common_diagonal(t) and not t.visited and t not in visited_triangles:
+                    visited_triangles.append(t)
+
+        return self.neighbours_visited == len(visited_triangles)
+
+    def find_common_diagonal(self, t2):
+        diagonal = []
+        for n in self.get_nodes():
+            if n in t2.get_nodes():
+                diagonal.append(n)
+        if len(diagonal) == 2:
+            return diagonal
+        return False
 
     def get_nodes(self):
         return [self.p1, self.p2, self.p3]
@@ -33,13 +54,14 @@ def ear_clip(points):
     nodes = []
     for p in points:
         nodes.append(Node(p))
-    old_nodes = nodes[:]
-    for i in range(0, len(nodes) - 3):  # Number of triangles is n-2 so run the loop n-3 times (no need to triangulate last triangle)
+    #old_nodes = nodes[:]
+    for i in range(0, len(nodes) - 2):  # Number of triangles is n-2 so run the loop n-3 times (no need to triangulate last triangle)
         ear_index = find_ear(nodes)
         if ear_index is False:
             continue
-
-        triangles.append(Triangle(nodes[ear_index - 1], nodes[ear_index], nodes[(ear_index + 1) % len(nodes)]))
+        triangle = Triangle(nodes[ear_index - 1], nodes[ear_index], nodes[(ear_index + 1) % len(nodes)])
+        add_triangle_to_nodes(triangle, nodes[ear_index - 1], nodes[ear_index], nodes[(ear_index + 1) % len(nodes)])
+        triangles.append(triangle)
         nodes.__delitem__(ear_index)
     return triangles
 
@@ -68,7 +90,7 @@ def contains_no_points(prev, point, next, nodes):
     return True
 
 def point_inside_polygon(p, polygon):
-    for i in range(len(polygon)):
+    for i in range(0, len(polygon)):
         if right_turn([polygon[i].p, polygon[(i+1) % len(polygon)].p, p]):
             continue
         else:
@@ -82,6 +104,11 @@ def right_turn(p):
         return True
     else:
         return False
+
+def add_triangle_to_nodes(triangle, n1, n2, n3):
+    n1.triangles.append(triangle)
+    n2.triangles.append(triangle)
+    n3.triangles.append(triangle)
 
 # Testing
 #points = [Node((574, 229)), Node((711, 487)), Node((555, 175)), Node((695, 88))]  #
