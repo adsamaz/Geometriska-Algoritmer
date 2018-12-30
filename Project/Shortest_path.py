@@ -33,62 +33,79 @@ def shortest_path(p, q, triangles):
     #return diagonals
     start_diagonal = diagonals.pop(0)
     deq = Double_ended_queue(start_node, start_diagonal[0], start_diagonal[1])
-
     apex_i = 0
     for i in range(0, len(diagonals)):
-
-        if deq.get_head_left() in diagonals[i]: # z = r_i+1
-            print("Right")
+        # z = r_i+1. The new vertex is should be appended to the right queue
+        if deq.get_head_left() in diagonals[i]:
             z = diagonals[i][0] if diagonals[i][1] == deq.get_head_left() else diagonals[i][1]
             while True:
                 if deq.get_head_right() == deq.apex:
-                    try:
-                        while is_convex(deq.left_queue[apex_i], deq.left_queue[apex_i + 1], z):
-                            apex_i += 1
-                            deq.right_queue.append(deq.left_queue[apex_i])
-                    except IndexError:
-                        deq.right_queue.append(deq.left_queue[apex_i])
-                        apex_i += 1
-                        deq.left_queue.append(z)
-                    deq.right_queue.append(z)
-                    deq.apex = deq.left_queue[apex_i]
+                    apex_i = build_new_path_right_queue(apex_i, deq, z)
                     break
-                if not is_convex(deq.apex, deq.get_head_right(), z):
+                if not is_convex(deq.right_queue[len(deq.right_queue) - 2], deq.get_head_right(), z):
                     deq.right_queue.append(z)
                     break
                 deq.right_queue.pop()
-
-        elif deq.get_head_right() in diagonals[i]:   # z = l_i+1
-            print("Left")
+        # z = l_i+1. The new vertex is should be appended to the right queue
+        elif deq.get_head_right() in diagonals[i]:
             z = diagonals[i][0] if diagonals[i][1] == deq.get_head_right() else diagonals[i][1]
             while True:
                 if deq.get_head_left() == deq.apex:
-                    try:
-                        while is_convex(deq.right_queue[apex_i], deq.right_queue[apex_i + 1], z):
-                            apex_i += 1
-                            deq.left_queue.append(deq.right_queue[apex_i])
-                    except IndexError:
-                        deq.left_queue.append(deq.right_queue[apex_i])
-                        apex_i += 1
-                        deq.right_queue.append(z)
-                    deq.left_queue.append(z)
-                    deq.apex = deq.right_queue[apex_i]
+                    apex_i = build_new_path_left_queue(apex_i, deq, z)
                     break
-                if not is_convex(deq.apex, deq.get_head_left(), z):
+                if is_convex(deq.left_queue[len(deq.left_queue) - 2], deq.get_head_left(), z):
                     deq.left_queue.append(z)
                     break
                 deq.left_queue.pop()
         else:
             print("error?")
 
-    if deq.get_head_right() == end_node:
-        print(deq.right_queue)
-        return deq.right_queue
-    elif deq.get_head_left() == end_node:
+    if deq.get_head_left() == end_node:
         print(deq.left_queue)
         return deq.left_queue
+    elif deq.get_head_right() == end_node:
+        print(deq.right_queue)
+        return deq.right_queue
     else:
         print("No queue ends at q")
+
+
+def build_new_path_left_queue(apex_i, deq, z):
+    deq.left_queue.pop()
+    try:
+        while not is_convex(deq.right_queue[apex_i], deq.right_queue[apex_i + 1], z):
+            deq.left_queue.append(deq.right_queue[apex_i])
+            apex_i += 1
+    except IndexError:
+        print("index error")
+        pass
+        # deq.left_queue.append(deq.right_queue[apex_i])
+        # apex_i += 1
+        # deq.right_queue.append(z)
+    deq.left_queue.append(deq.right_queue[apex_i])
+    deq.left_queue.append(z)
+    deq.apex = deq.right_queue[apex_i]
+    return apex_i
+
+
+def build_new_path_right_queue(apex_i, deq, z):
+    deq.right_queue.pop()
+    try:
+        while is_convex(deq.left_queue[apex_i], deq.left_queue[apex_i + 1], z):
+            deq.right_queue.append(deq.left_queue[apex_i])
+            apex_i += 1
+            # deq.right_queue.append(deq.left_queue[apex_i])
+    except IndexError:
+        print("index error")
+        pass
+        # deq.right_queue.append(deq.left_queue[apex_i])
+        # apex_i += 1
+        # deq.left_queue.append(z)
+    deq.right_queue.append(deq.left_queue[apex_i])
+    deq.right_queue.append(z)
+    deq.apex = deq.left_queue[apex_i]
+    return apex_i
+
 
 def add_last_diagonal(diagonals, end_node):
     d_length = len(diagonals)

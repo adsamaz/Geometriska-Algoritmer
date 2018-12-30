@@ -3,8 +3,8 @@ import numpy as np
 
 def generate_polygon(n):
 
-    x = np.random.randint(40,800,n)
-    y = np.random.randint(40,500,n)
+    x = np.random.randint(40,1000,n)
+    y = np.random.randint(40,600,n)
 
     ##computing the (or a) 'center point' of the polygon
     center_point = [np.sum(x)/n, np.sum(y)/n]

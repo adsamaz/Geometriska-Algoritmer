@@ -37,14 +37,12 @@ class Gui(Frame):
     def clear_canvas(self):
         self.canvas.delete("all")
 
-    def draw_point(self, point):
-        python_green = "#476042"
-        radius = 1.5
+    def draw_point(self, point, color="green", radius=1.5):
         x1, y1 = point[0] - radius, \
                  point[1] - radius
         x2, y2 = point[0] + radius, \
                  point[1] + radius
-        self.canvas.create_oval(x1, y1, x2, y2, fill=python_green)
+        self.canvas.create_oval(x1, y1, x2, y2, fill=color)
 
     def draw_segment(self, point):
         python_green = "#476042"
@@ -89,7 +87,7 @@ class Gui(Frame):
         self.list.clear()
         self.clicked_points.clear()
         i = 0
-        self.list = generate_polygon(15)
+        self.list = generate_polygon(100)
         while i < len(self.list):
             self.draw_point(self.list[i])
             self.draw_line(self.list[i - 1], self.list[i])
@@ -125,7 +123,7 @@ class Gui(Frame):
     def get_origin(self, event_origin):
         x, y = event_origin.x, event_origin.y
         self.clicked_points.append((x, y))
-        self.draw_point((x, y))
+        self.draw_point((x, y), color="blue", radius=3)
 
     def initUI(self):
         self.master.title("Lines")
@@ -191,18 +189,15 @@ class Gui(Frame):
     def compute_visibility_polygon(self):
         vpc = Visibility_polygon_class()
         vp = vpc.get_visibility_polygon(self.list, self.origin)
-        #vp = vpc.get_visibility_polygon(self.list, self.origin).values()
-        #for i in vp:
-           #self.draw_line(i.p1.p, i.p2.p, "red")
         for i in range(0, len(vp)):
             self.draw_line(vp[i - 1], vp[i], "red")
 
     def compute_triangulation(self):
         self.triangulation = ear_clip(self.list)
         for t in self.triangulation:
-            self.draw_line(t.p1.p, t.p2.p, "red")
-            self.draw_line(t.p2.p, t.p3.p, "red")
-            self.draw_line(t.p3.p, t.p1.p, "red")
+            self.draw_line(t.p1.p, t.p2.p, "#ffa5a5")
+            self.draw_line(t.p2.p, t.p3.p, "#ffa5a5")
+            self.draw_line(t.p3.p, t.p1.p, "#ffa5a5")
         for i in range(0, len(self.list)):
             self.draw_line(self.list[i-1], self.list[i])
 
@@ -232,6 +227,7 @@ class Gui(Frame):
                 print("Error, points not inside")
         else:
             print("Error, wrong number of points, expected 2")
+        self.clicked_points.clear()
 
     def intersects(self, segment):
         for s in self.list:
