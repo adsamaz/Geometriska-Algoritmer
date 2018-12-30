@@ -1,5 +1,4 @@
 from queue import Queue, Empty
-
 from Project.Ear_clipping import *
 
 class Double_ended_queue:
@@ -11,21 +10,10 @@ class Double_ended_queue:
         self.right_queue = [apex, start_right]
 
     def get_head_left(self):
-        return self.left_queue.__getitem__(-1)
+        return self.left_queue[-1]
 
     def get_head_right(self):
-        return self.right_queue.__getitem__(-1)
-
-
-def add_last_diagonal(diagonals, end_node):
-    d_length = len(diagonals)
-    if d_length > 1:
-        if diagonals[d_length - 1][0] in diagonals[d_length - 2]:
-            diagonals.append((diagonals[d_length - 1][0], end_node))
-        else:
-            diagonals.append((diagonals[d_length - 1][1], end_node))
-    else:
-        diagonals.append((diagonals[d_length - 1][0], end_node))
+        return self.right_queue[-1]
 
 def shortest_path(p, q, triangles):
     triangle_p = None
@@ -101,6 +89,16 @@ def shortest_path(p, q, triangles):
         return deq.left_queue
     else:
         print("No queue ends at q")
+
+def add_last_diagonal(diagonals, end_node):
+    d_length = len(diagonals)
+    if d_length > 1:
+        if diagonals[d_length - 1][0] in diagonals[d_length - 2]:
+            diagonals.append((diagonals[d_length - 1][0], end_node))
+        else:
+            diagonals.append((diagonals[d_length - 1][1], end_node))
+    else:
+        diagonals.append((diagonals[d_length - 1][0], end_node))
 
 def breadth_first_search(start, end):
     # a FIFO open_set

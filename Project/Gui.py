@@ -89,7 +89,7 @@ class Gui(Frame):
         self.list.clear()
         self.clicked_points.clear()
         i = 0
-        self.list = generate_polygon(10)
+        self.list = generate_polygon(15)
         while i < len(self.list):
             self.draw_point(self.list[i])
             self.draw_line(self.list[i - 1], self.list[i])
