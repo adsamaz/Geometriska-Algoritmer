@@ -206,7 +206,7 @@ class Gui(Frame):
         for i in range(0, len(self.list)):
             self.draw_line(self.list[i-1], self.list[i])
 
-    def compute_shortest_path(self):
+    """def compute_shortest_path(self):
         polygon = shPolygon(self.list)
         if len(self.clicked_points) == 2:
             p1 = self.clicked_points[0]
@@ -218,20 +218,20 @@ class Gui(Frame):
             else:
                 print("Error, points not inside")
         else:
-            print("Error, wrong number of points, expected 2")
-    """def compute_shortest_path(self):
+            print("Error, wrong number of points, expected 2")"""
+    def compute_shortest_path(self):
         polygon = shPolygon(self.list)
         if len(self.clicked_points) == 2:
             p1 = self.clicked_points[0]
             p2 = self.clicked_points[1]
             if polygon.contains(shPoint(p1)) and polygon.contains(shPoint(p2)):
-                sp = shortest_path(p1, p2, self.list, self.triangulation)
-                for i in range(len(sp)):
-                    self.draw_line(sp[i-1].p, sp[i].p, "green")
+                sp = shortest_path(p1, p2, self.triangulation)
+                for i in range(len(sp) - 1):
+                    self.draw_line(sp[i].p, sp[i + 1].p, "green")
             else:
                 print("Error, points not inside")
         else:
-            print("Error, wrong number of points, expected 2")"""
+            print("Error, wrong number of points, expected 2")
 
     def intersects(self, segment):
         for s in self.list:

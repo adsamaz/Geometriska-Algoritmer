@@ -22,6 +22,14 @@ class Triangle:
 
         return self.neighbours_visited == len(visited_triangles)
 
+    def find_neighbour_triangles(self):
+        triangles = []
+        for node in self.get_nodes():
+            for t in node.triangles:
+                if not t in triangles and self.find_common_diagonal(t):
+                    triangles.append(t)
+        return triangles
+
     def find_common_diagonal(self, t2):
         diagonal = []
         for n in self.get_nodes():
@@ -99,6 +107,14 @@ def point_inside_polygon(p, polygon):
 
 def right_turn(p):
     matrix = [[1, p[0][0], p[0][1]], [1, p[1][0], p[1][1]], [1, p[2][0], p[2][1]]]
+    sign = numpy.linalg.det(matrix)
+    if sign < 0:
+        return True
+    else:
+        return False
+
+def right_turn_nodes(p1, p2, p3):
+    matrix = [[1, p1.x, p1.y], [1, p2.x, p2.y], [1, p3.x, p3.y]]
     sign = numpy.linalg.det(matrix)
     if sign < 0:
         return True
