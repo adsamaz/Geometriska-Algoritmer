@@ -87,7 +87,7 @@ class Gui(Frame):
         self.list.clear()
         self.clicked_points.clear()
         i = 0
-        self.list = generate_polygon(100)
+        self.list = generate_polygon(20)
         while i < len(self.list):
             self.draw_point(self.list[i])
             self.draw_line(self.list[i - 1], self.list[i])
@@ -137,14 +137,15 @@ class Gui(Frame):
         b8 = Button(self, compound=TOP, text="Randomize Segments", command=self.randomize_segments)
         b10 = Button(self, compound=TOP, text="Randomize Polygon", command=self.randomize_polygon)
         b2 = Button(self, compound=TOP, text="From File", command=self.from_file)
-        b3 = Button(self, compound=TOP, text="Smallest Circle(Brute)", command=self.compute_smallest_circle_brute)
-        b4 = Button(self, compound=TOP, text="Smallest Circle(Randomized)", command=self.compute_smallest_circle_randomized)
-        b5 = Button(self, compound=TOP, text="Smallest rectangle(RC)", command=self.compute_smallest_rectangle)
+        b3 = Button(self, compound=TOP, text="Sm Circle(Brute)", command=self.compute_smallest_circle_brute)
+        b4 = Button(self, compound=TOP, text="Sm Circle(Randomized)", command=self.compute_smallest_circle_randomized)
+        b5 = Button(self, compound=TOP, text="Sm rectangle(RC)", command=self.compute_smallest_rectangle)
         b6 = Button(self, compound=TOP, text="Convex Hull(Inc)", command=self.compute_convex_hull)
         b7 = Button(self, compound=TOP, text="Convex Hull(DaC)", command=self.compute_convex_hull_dac)
         b9 = Button(self, compound=TOP, text="Visibility Polygon", command=self.compute_visibility_polygon)
         b11 = Button(self, compound=TOP, text="Triangulate", command=self.compute_triangulation)
         b12 = Button(self, compound=TOP, text="Shortest Path", command=self.compute_shortest_path)
+        b13 = Button(self, compound=TOP, text="Diagonals", command=self.compute_diagonal_path)
 
         b1.pack(side=LEFT, fill=BOTH, expand=1)
         b8.pack(side=LEFT, fill=BOTH, expand=1)
@@ -157,7 +158,9 @@ class Gui(Frame):
         b7.pack(side=LEFT, fill=BOTH, expand=1)
         b9.pack(side=LEFT, fill=BOTH, expand=1)
         b11.pack(side=LEFT, fill=BOTH, expand=1)
+        b13.pack(side=LEFT, fill=BOTH, expand=1)
         b12.pack(side=LEFT, fill=BOTH, expand=1)
+
 
     def compute_smallest_circle_brute(self):
         circle = smallest_circle_brute(self.list)
@@ -201,19 +204,19 @@ class Gui(Frame):
         for i in range(0, len(self.list)):
             self.draw_line(self.list[i-1], self.list[i])
 
-    """def compute_shortest_path(self):
+    def compute_diagonal_path(self):
         polygon = shPolygon(self.list)
         if len(self.clicked_points) == 2:
             p1 = self.clicked_points[0]
             p2 = self.clicked_points[1]
             if polygon.contains(shPoint(p1)) and polygon.contains(shPoint(p2)):
-                sp = shortest_path(p1, p2, self.list, self.triangulation)
+                sp = shortest_path(p1, p2, self.triangulation, True)
                 for s in sp:
                     self.draw_line(s[0].p, s[1].p, "green")
             else:
                 print("Error, points not inside")
         else:
-            print("Error, wrong number of points, expected 2")"""
+            print("Error, wrong number of points, expected 2")
     def compute_shortest_path(self):
         polygon = shPolygon(self.list)
         if len(self.clicked_points) == 2:
@@ -222,7 +225,7 @@ class Gui(Frame):
             if polygon.contains(shPoint(p1)) and polygon.contains(shPoint(p2)):
                 sp = shortest_path(p1, p2, self.triangulation)
                 for i in range(len(sp) - 1):
-                    self.draw_line(sp[i].p, sp[i + 1].p, "green")
+                    self.draw_line(sp[i].p, sp[i + 1].p, "blue")
             else:
                 print("Error, points not inside")
         else:

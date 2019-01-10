@@ -15,7 +15,7 @@ class Double_ended_queue:
     def get_head_right(self):
         return self.right_queue[-1]
 
-def shortest_path(p, q, triangles):
+def shortest_path(p, q, triangles, diagonals_only=False):
     triangle_p = None
     triangle_q = None
     start_node = Node(p)
@@ -30,7 +30,8 @@ def shortest_path(p, q, triangles):
 
     diagonals = breadth_first_search(triangle_p, triangle_q)
     add_last_diagonal(diagonals, end_node)
-    #return diagonals
+    if diagonals_only:
+        return diagonals
     start_diagonal = diagonals.pop(0)
     deq = Double_ended_queue(start_node, start_diagonal[0], start_diagonal[1])
     apex_i = 0
@@ -60,6 +61,7 @@ def shortest_path(p, q, triangles):
         else:
             print("error?")
 
+    print(deq.get_head_right()==deq.get_head_left())
     if deq.get_head_left() == end_node:
         print(deq.left_queue)
         return deq.left_queue
